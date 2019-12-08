@@ -12,7 +12,13 @@ namespace EcomMicroservice2.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        
         public IConfiguration Configuration { get; }
+        public HomeController(IConfiguration _configuration)
+        {
+            Configuration = _configuration;
+        }
+
 
         // GET api/values
         [HttpGet]
@@ -33,8 +39,6 @@ namespace EcomMicroservice2.Controllers
             return "value";
         }
 
-        public string ConnectionString { get; set; }      
-    
         private MySqlConnection GetConnection()    
         {    
             return new MySqlConnection(Configuration["ConnectionStrings:Default"]);    
