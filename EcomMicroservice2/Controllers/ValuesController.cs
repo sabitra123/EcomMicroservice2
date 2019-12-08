@@ -13,6 +13,7 @@ namespace EcomMicroservice2.Controllers
     public class ValuesController : ControllerBase
     {
         public IConfiguration Configuration { get; }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -27,7 +28,7 @@ namespace EcomMicroservice2.Controllers
             using (MySqlConnection conn = GetConnection())  
                 {  
                     conn.Open();  
-                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG", conn);                
+                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG LIMIT 10", conn);                
                 }
             return "value";
         }
