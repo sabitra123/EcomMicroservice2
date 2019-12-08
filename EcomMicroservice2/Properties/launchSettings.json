@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_STARTUP_PROJECT": "EcomMicroservice2"
       }
     },
     "EcomMicroservice2": {
@@ -23,7 +24,8 @@
       "launchUrl": "api/values",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_STARTUP_PROJECT": "EcomMicroservice2"
       }
     }
   }

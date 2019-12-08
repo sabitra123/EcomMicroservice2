@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Sabitra\\container-crush\\EcomMicroservice2\\EcomMicroservice2.csproj": {}
+    "C:\\Sabitra\\container-crush\\GitRepo\\EcomMicroservice2\\EcomMicroservice2.csproj": {}
   },
   "projects": {
-    "C:\\Sabitra\\container-crush\\EcomMicroservice2\\EcomMicroservice2.csproj": {
+    "C:\\Sabitra\\container-crush\\GitRepo\\EcomMicroservice2\\EcomMicroservice2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Sabitra\\container-crush\\EcomMicroservice2\\EcomMicroservice2.csproj",
+        "projectUniqueName": "C:\\Sabitra\\container-crush\\GitRepo\\EcomMicroservice2\\EcomMicroservice2.csproj",
         "projectName": "EcomMicroservice2",
-        "projectPath": "C:\\Sabitra\\container-crush\\EcomMicroservice2\\EcomMicroservice2.csproj",
+        "projectPath": "C:\\Sabitra\\container-crush\\GitRepo\\EcomMicroservice2\\EcomMicroservice2.csproj",
         "packagesPath": "C:\\Users\\SabitraBanerjee\\.nuget\\packages\\",
-        "outputPath": "C:\\Sabitra\\container-crush\\EcomMicroservice2\\obj\\",
+        "outputPath": "C:\\Sabitra\\container-crush\\GitRepo\\EcomMicroservice2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

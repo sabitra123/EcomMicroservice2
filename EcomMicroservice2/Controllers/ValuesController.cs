@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace EcomMicroservice2.Controllers
 {
@@ -10,6 +12,7 @@ namespace EcomMicroservice2.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public IConfiguration Configuration { get; }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -21,8 +24,20 @@ namespace EcomMicroservice2.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+            using (MySqlConnection conn = GetConnection())  
+                {  
+                    conn.Open();  
+                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG", conn);                
+                }
             return "value";
         }
+
+        public string ConnectionString { get; set; }      
+    
+        private MySqlConnection GetConnection()    
+        {    
+            return new MySqlConnection(Configuration["ConnectionStrings:Default"]);    
+        } 
 
         // POST api/values
         [HttpPost]
