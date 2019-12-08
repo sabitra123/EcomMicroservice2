@@ -1,0 +1,14 @@
+C:\Sabitra\container-crush\EcomMicroservice2\bin\Debug\netcoreapp2.1\EcomMicroservice2.deps.json
+C:\Sabitra\container-crush\EcomMicroservice2\bin\Debug\netcoreapp2.1\EcomMicroservice2.runtimeconfig.json
+C:\Sabitra\container-crush\EcomMicroservice2\bin\Debug\netcoreapp2.1\EcomMicroservice2.runtimeconfig.dev.json
+C:\Sabitra\container-crush\EcomMicroservice2\bin\Debug\netcoreapp2.1\EcomMicroservice2.dll
+C:\Sabitra\container-crush\EcomMicroservice2\bin\Debug\netcoreapp2.1\EcomMicroservice2.pdb
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.csprojAssemblyReference.cache
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.csproj.CoreCompileInputs.cache
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.RazorAssemblyInfo.cache
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.RazorAssemblyInfo.cs
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.AssemblyInfoInputs.cache
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.AssemblyInfo.cs
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.RazorTargetAssemblyInfo.cache
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.dll
+C:\Sabitra\container-crush\EcomMicroservice2\obj\Debug\netcoreapp2.1\EcomMicroservice2.pdb
