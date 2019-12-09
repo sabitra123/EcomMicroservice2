@@ -30,12 +30,18 @@ namespace EcomMicroservice2.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+            try{
             using (MySqlConnection conn = GetConnection())  
                 {  
                     conn.Open();  
                     MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG LIMIT 10", conn);                
                 }
             return "value";
+            }
+            catch(Exception ex)
+            {
+               return ex.InnerException + ex.Message + ex.StackTrace;
+            }
         }
 
         private MySqlConnection GetConnection()    
