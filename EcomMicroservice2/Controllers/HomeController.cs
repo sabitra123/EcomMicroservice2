@@ -47,7 +47,7 @@ namespace EcomMicroservice2.Controllers
 
         private MySqlConnection GetConnection()    
         {    
-            return new MySqlConnection(Configuration["ConnectionStrings:Default"]);    
+           return new MySqlConnection(Configuration["ConnectionStrings:Default"]); 
         } 
 
         // POST api/values
