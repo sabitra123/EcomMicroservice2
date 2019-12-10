@@ -41,7 +41,7 @@ namespace EcomMicroservice2.Controllers
             }
             catch(Exception ex)
             {
-               return ex.InnerException + ex.Message + ex.StackTrace;
+               return ex.InnerException + ex.Message + ex.StackTrace + Configuration["ConnectionStrings:Default"];
             }
         }
 
