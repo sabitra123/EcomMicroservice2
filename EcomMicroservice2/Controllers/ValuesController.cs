@@ -37,15 +37,18 @@ namespace EcomMicroservice2.Controllers
                 {  
                     
                     conn.Open();  
-                    MySqlCommand cmd = new MySqlCommand("SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema='productdb' AND table_name='XXIBM_PRODUCT_CATALOGUE'", conn);                
+                    MySqlCommand cmd = new MySqlCommand("select DISTINCT SEGMENT_NAME,FAMILY_NAME,CLASS_NAME from XXIBM_PRODUCT_CATALOGUE ", conn);                
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())  
                     {  
-                        sb.Append(Convert.ToString(dataReader["COLUMN_NAME"]));
-                        sb.Append(Convert.ToString("\n"));
-
-
+                       
+			            sb.Append(Convert.ToString(dataReader["SEGMENT_NAME"]));
+                       
+                        sb.Append(Convert.ToString(dataReader["FAMILY_NAME"]));
+                      
+                        sb.Append(Convert.ToString(dataReader["CLASS_NAME"]));
+                       
                     } 
                 }
             return sb.ToString();
