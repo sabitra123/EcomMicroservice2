@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
+using EcomMicroservice2.Models;
 
 namespace EcomMicroservice2.Controllers
 {
@@ -12,7 +13,6 @@ namespace EcomMicroservice2.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        
         public IConfiguration Configuration { get; }
         public HomeController(IConfiguration _configuration)
         {
@@ -29,26 +29,13 @@ namespace EcomMicroservice2.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<List<ProductClass>> Get(int id)
         {
-            try{
-            using (MySqlConnection conn = GetConnection())  
-                {  
-                    conn.Open();  
-                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG LIMIT 10", conn);                
-                }
-            return "value";
-            }
-            catch(Exception ex)
-            {
-               return ex.InnerException + ex.Message + ex.StackTrace + Configuration["ConnectionStrings:Default"];
-            }
+              DatabaseCURD dbCurd = new DatabaseCURD();
+              return dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
         }
-
-        private MySqlConnection GetConnection()    
-        {    
-           return new MySqlConnection(Configuration["ConnectionStrings:Default"]); 
-        } 
 
         // POST api/values
         [HttpPost]

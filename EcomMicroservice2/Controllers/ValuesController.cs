@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace EcomMicroservice2.Controllers
 {
@@ -30,13 +31,28 @@ namespace EcomMicroservice2.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            try{
-            using (MySqlConnection conn = GetConnection())  
+        try{
+                 StringBuilder sb = new StringBuilder();
+                using (MySqlConnection conn = GetConnection())  
                 {  
+                    
                     conn.Open();  
                     MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG LIMIT 10", conn);                
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())  
+                    {  
+                        sb.Append(Convert.ToInt32(dataReader["Segment"]));
+                        sb.Append(Convert.ToString(dataReader["Segment Name"]));
+                        sb.Append(Convert.ToInt32(dataReader["Family"]));
+                        sb.Append(Convert.ToString(dataReader["Family Name"]));
+                        sb.Append(Convert.ToInt32(dataReader["Class"]));
+                        sb.Append(Convert.ToString(dataReader["Class Name"]));
+                        sb.Append(Convert.ToInt32(dataReader["Commodity"]));
+                        sb.Append(Convert.ToString(dataReader["Commodity Name"]));
+                    } 
                 }
-            return "value";
+            return sb.ToString();
             }
             catch(Exception ex)
             {
