@@ -36,7 +36,34 @@ namespace EcomMicroservice2.Models
    // Protected implementation of Dispose pattern.
     }
 
-    
+    public class ProductDistinctClass : IDisposable
+    {
+    public string SegmentName { get; set; }
+    public string FamilyName { get; set; }
+    public string ClassName { get; set; }
+
+    bool disposed = false;
+    // Public implementation of Dispose pattern callable by consumers.
+   public void Dispose()
+   { 
+      Dispose(true);
+      GC.SuppressFinalize(this);           
+   }
+
+    protected virtual void Dispose(bool disposing)
+    {
+            if (disposed)
+                return; 
+            
+            if (disposing) {
+                // Free any other managed objects here.
+                //
+            }          
+            disposed = true;
+    }
+   
+   // Protected implementation of Dispose pattern.
+    }
     public class ProductItemSKUClass
     {
     public Int32 ItemNumber { get; set; }

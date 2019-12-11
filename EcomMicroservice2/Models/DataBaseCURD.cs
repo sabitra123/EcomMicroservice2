@@ -11,28 +11,24 @@ namespace EcomMicroservice2.Models
 {
     public class DatabaseCURD
     {
-        public List<ProductClass> GetAllProduct(string connectionString)
+        public List<ProductDistinctClass> GetAllProduct(string connectionString)
         {
-            List<ProductClass> lstProduct =  new List<ProductClass>();
+            List<ProductDistinctClass> lstProduct =  new List<ProductDistinctClass>();
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
                       
-                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOG LIMIT 10", conn);                
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getDistinctProduct, conn);                
                     conn.Open();
                     MySqlDataReader dataReader = cmd.ExecuteReader();
  
                     while (dataReader.Read())  
                     {  
-                        ProductClass pdc = new ProductClass();
-                        pdc.Segment = Convert.ToInt32(dataReader["Segment"]);
-                        pdc.SegmentName = Convert.ToString(dataReader["Segment Name"]);
-                        pdc.Family = Convert.ToInt32(dataReader["Family"]);
-                        pdc.FamilyName = Convert.ToString(dataReader["Family Name"]);
-                        pdc.Class = Convert.ToInt32(dataReader["Class"]);
-                        pdc.ClassName = Convert.ToString(dataReader["Class Name"]);
-                        pdc.Commodity = Convert.ToInt32(dataReader["Commodity"]);
-                        pdc.CommodityName = Convert.ToString(dataReader["Commodity Name"]);
+                        ProductDistinctClass pdc = new ProductDistinctClass();
+
+			           pdc.SegmentName = Convert.ToString(dataReader["SEGMENT_NAME"]);        
+                       pdc.FamilyName = Convert.ToString(dataReader["FAMILY_NAME"]);   
+                       pdc.ClassName =  Convert.ToString(dataReader["CLASS_NAME"]);
 
                        lstProduct.Add(pdc);
                        pdc.Dispose();
