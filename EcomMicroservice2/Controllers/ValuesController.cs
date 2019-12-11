@@ -42,7 +42,7 @@ namespace EcomMicroservice2.Controllers
 
                     while (dataReader.Read())  
                     {  
-                        sb.Append(Convert.ToInt32(dataReader["table_name"]));
+                        sb.Append(Convert.ToString(dataReader["table_name"]));
                         
                     } 
                 }
