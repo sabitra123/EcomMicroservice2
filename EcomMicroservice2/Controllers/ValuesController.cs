@@ -37,20 +37,15 @@ namespace EcomMicroservice2.Controllers
                 {  
                     
                     conn.Open();  
-                    MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_CATALOGUE LIMIT 10", conn);                
+                    MySqlCommand cmd = new MySqlCommand("SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema='productdb' AND table_name='XXIBM_PRODUCT_CATALOGUE'", conn);                
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())  
                     {  
-                        sb.Append(Convert.ToInt32(dataReader["segment"]));
-                        sb.Append(Convert.ToString(dataReader["Segment Name"]));
-                        sb.Append(Convert.ToInt32(dataReader["Family"]));
-                        sb.Append(Convert.ToString(dataReader["Family Name"]));
-                        sb.Append(Convert.ToInt32(dataReader["Class"]));
-                        sb.Append(Convert.ToString(dataReader["Class Name"]));
-                        sb.Append(Convert.ToInt32(dataReader["Commodity"]));
-                        sb.Append(Convert.ToString(dataReader["Commodity Name"]));
-                        
+                        sb.Append(Convert.ToString(dataReader["COLUMN_NAME"]));
+                        sb.Append(Convert.ToString("\n"));
+
+
                     } 
                 }
             return sb.ToString();
