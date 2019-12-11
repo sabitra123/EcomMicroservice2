@@ -35,6 +35,8 @@ namespace EcomMicroservice2.Models
                        
                     }  
 
+                    conn.Close();
+
                 }
                 return lstProduct;
             }

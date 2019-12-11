@@ -29,10 +29,11 @@ namespace EcomMicroservice2.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<List<ProductDistinctClass>> Get(int id)
+        public ActionResult<Int32> Get(int id)
         {
               DatabaseCURD dbCurd = new DatabaseCURD();
-              return dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              List<ProductDistinctClass> lst = dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              return lst.Count;  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
               //return "value";
             
         }
