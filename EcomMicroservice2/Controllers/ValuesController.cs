@@ -37,6 +37,7 @@ namespace EcomMicroservice2.Controllers
                 {  
                     
                     conn.Open();  
+                    MySqlCommand cmd = new MySqlCommand("SELECT table_name FROM information_schema.tables", conn);                
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     while (dataReader.Read())  
