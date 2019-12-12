@@ -69,9 +69,9 @@ namespace EcomMicroservice2.Models
     public class ProductBrandClass
     {
        // public Int32 ITEM_NO { get; set; }
-        public string DESCRIPTION { get; set; }
-        public string LONG_DESCRIPTION { get; set; }
-       // public Int32 CATALOGUE_CATEGORY { get; set; }
+       // public string DESCRIPTION { get; set; }
+      //  public string LONG_DESCRIPTION { get; set; }
+      //  public Int32 CATALOGUE_CATEGORY { get; set; }
         public string BRAND { get; set; }
     }
 

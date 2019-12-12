@@ -66,11 +66,11 @@ namespace EcomMicroservice2.Models
                     {  
                         ProductBrandClass pdc = new ProductBrandClass();
 
-			          // pdc.ITEM_NO = Convert.ToInt32(dataReader["ITEM_NUMBER"]);        
-                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
-                      // pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
-                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
-                       pdc.DESCRIPTION = Convert.ToString(dataReader["BRAND"]);
+			         //  pdc.ITEM_NO = Convert.ToInt32(dataReader["ITEM_NUMBER"]);        
+                     //  pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
+                     //  pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
+                     //  pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        
                        lstProduct.Add(pdc);  
                     }  
