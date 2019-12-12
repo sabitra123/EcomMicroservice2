@@ -13,6 +13,7 @@ public class AddHeaderAttribute : ResultFilterAttribute
     public override void OnResultExecuting(ResultExecutingContext context)
     {
         context.HttpContext.Response.Headers.Add(_name, new string[] { _value });
+        context.HttpContext.Response.Headers.Add("Content-Type", "application/javascript");
         base.OnResultExecuting(context);
     }
 }
