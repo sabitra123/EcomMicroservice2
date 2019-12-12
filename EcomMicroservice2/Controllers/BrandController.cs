@@ -8,28 +8,20 @@ namespace EcomMicroservice2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AddHeader("Access-Control-Allow-Origin", "*")]
-    public class HomeController : ControllerBase
+    public class BrandController : ControllerBase
     {
         public IConfiguration Configuration { get; }
-        public HomeController(IConfiguration _configuration)
+        public BrandController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
 
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value2", "value3" };
-        }
-
         // GET api/values/5
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        [HttpGet]
+        public JsonResult Get()
         {
               DatabaseCURD dbCurd = new DatabaseCURD();
-              List<ProductSegmentClass> lst = dbCurd.GetSegmentProduct(Configuration["ConnectionStrings:Default"]);
+              List<ProductBrandClass> lst = dbCurd.GetAllBrand(Configuration["ConnectionStrings:Default"]);
               return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
               //return "value";
             

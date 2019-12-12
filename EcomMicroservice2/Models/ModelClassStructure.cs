@@ -36,12 +36,11 @@ namespace EcomMicroservice2.Models
    // Protected implementation of Dispose pattern.
     }
 
-    public class ProductDistinctClass : IDisposable
+    public class ProductSegmentClass : IDisposable
     {
     public string SegmentName { get; set; }
-    public string FamilyName { get; set; }
-    public string ClassName { get; set; }
-
+    public Int32 Segment { get; set; }
+    
     bool disposed = false;
     // Public implementation of Dispose pattern callable by consumers.
    public void Dispose()
@@ -64,6 +63,61 @@ namespace EcomMicroservice2.Models
    
    // Protected implementation of Dispose pattern.
     }
+
+    // ITEM_NO,DESCRIPTION, LONG_DESCRIPTION, CATALOGUE_CATEGORY,BRAND
+
+    public class ProductBrandClass
+    {
+        public Int32 ITEM_NO { get; set; }
+        public string DESCRIPTION { get; set; }
+        public string LONG_DESCRIPTION { get; set; }
+        public Int32 CATALOGUE_CATEGORY { get; set; }
+        public string BRAND { get; set; }
+    }
+
+    // CLASS, CLASS_NAME
+
+    public class ProductClassClass
+    {
+        public Int32 CLASS { get; set; }
+        public string CLASS_NAME { get; set; }
+    }
+
+    // FAMILY, FAMILY_NAME
+
+    
+    public class ProductFamilyClass
+    {
+        public Int32 FAMILY { get; set; }
+        public string FAMILY_NAME { get; set; }
+    }
+
+// COMMODITY, COMMODITY_NAME
+
+    public class ProductcommodityClass
+    {
+        public Int32 COMMODITY { get; set; }
+        public string COMMODITY_NAME { get; set; }
+    }
+
+    // COMMODITY, COMMODITY_NAME,SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKUAtt_Value1 AS SIZE, SKUAtt_Value2 AS COLOUR, LIST_PRICE,DISCOUNT,INSTOCK,PRICE_EFFECTIVE_DATE
+    public class ProductDetailsClass
+    {
+    public Int32 COMMODITY { get; set; }
+    public string COMMODITY_NAME { get; set; }
+    public Int32 ITEM_NUMBER { get; set; }
+    public string DESCRIPTION { get; set; } 
+    public string LONG_DESCRIPTION { get; set; }
+    public string BRAND { get; set; }
+    public string SIZE { get; set; }
+    public string COLOUR { get; set; }
+    public decimal LIST_PRICE { get; set; }
+    public decimal DISCOUNT { get; set; }
+    public string INSTOCK { get; set; }
+    public DateTime PRICE_EFFECTIVE_DATE { get; set; }
+    }
+
+
     public class ProductItemSKUClass
     {
     public Int32 ItemNumber { get; set; }

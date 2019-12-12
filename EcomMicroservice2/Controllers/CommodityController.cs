@@ -8,14 +8,14 @@ namespace EcomMicroservice2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AddHeader("Access-Control-Allow-Origin", "*")]
-    public class HomeController : ControllerBase
+    public class CommodityController : ControllerBase
     {
         public IConfiguration Configuration { get; }
-        public HomeController(IConfiguration _configuration)
+        public CommodityController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
+
 
         // GET api/values
         [HttpGet]
@@ -29,7 +29,7 @@ namespace EcomMicroservice2.Controllers
         public JsonResult Get(int id)
         {
               DatabaseCURD dbCurd = new DatabaseCURD();
-              List<ProductSegmentClass> lst = dbCurd.GetSegmentProduct(Configuration["ConnectionStrings:Default"]);
+              List<ProductcommodityClass> lst = dbCurd.GetCommodityByID(Configuration["ConnectionStrings:Default"],id);
               return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
               //return "value";
             
