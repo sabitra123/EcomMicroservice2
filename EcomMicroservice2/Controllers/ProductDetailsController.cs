@@ -21,6 +21,7 @@ namespace EcomMicroservice2.Controllers
         [HttpGet("{Family}/{Class}/{Commodity}/{Color}/{Brand}")]
         public JsonResult Get(Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
+            
               DatabaseCURD dbCurd = new DatabaseCURD();
               List<ProductDetailsClass> lst = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
               return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
