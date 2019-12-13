@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Configuration;
-using System.Data;
+using System.Text;
 
 namespace EcomMicroservice2.Models
 {
@@ -212,14 +211,51 @@ namespace EcomMicroservice2.Models
             }
         }
 
-        public List<ProductDetailsClass> GetProductDetails(string connectionString)
+        public List<ProductDetailsClass> GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
+
                       
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    
+                    if(Family != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
+                        cmd.Parameters.AddWithValue("@FAMILY", Family);
+                    }
+
+                    if(Class != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.CLASS=@CLASS ");
+                        cmd.Parameters.AddWithValue("@CLASS", Class);
+                    }
+
+                    if(Commodity != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.COMMODITY=@COMMODITY ");
+                        cmd.Parameters.AddWithValue("@COMMODITY", Commodity);
+                    }
+                    // Color,string Brand
+                    if(!String.IsNullOrEmpty(Color))
+                    {
+                        sbQuery.Append(" AND SKU.SKUAtt_Value2=@COLOR ");
+                        cmd.Parameters.AddWithValue("@COLOR", Color);
+                    }
+
+                    if(!String.IsNullOrEmpty(Brand))
+                    {
+                        sbQuery.Append(" AND STYLE.BRAND=@BRAND ");
+                        cmd.Parameters.AddWithValue("@BRAND", Brand);
+                    }
+                    
+                    cmd.Prepare();
+
                     conn.Open();
                     MySqlDataReader dataReader = cmd.ExecuteReader();
  
@@ -227,6 +263,8 @@ namespace EcomMicroservice2.Models
                     {  
                        ProductDetailsClass pdc = new ProductDetailsClass();
        
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
                        pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  

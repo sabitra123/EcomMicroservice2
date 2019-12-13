@@ -21,15 +21,15 @@ namespace EcomMicroservice2.Controllers
         }
 
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("{searchString}/{id}")]
+        public ActionResult<IEnumerable<string>> Get(string searchString, Int32 id)
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(string searchString)
+        public ActionResult<string> Get(Int32 id)
         {
         try{
                  StringBuilder sb = new StringBuilder();
