@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EcomMicroservice2.Models
 {
@@ -98,6 +99,14 @@ namespace EcomMicroservice2.Models
     {
         public Int32 COMMODITY { get; set; }
         public string COMMODITY_NAME { get; set; }
+    }
+
+    public class ProductMenuDetails
+    {
+        public Int32 FAMILY { get; set; }
+        public string FAMILY_NAME {get; set;}
+        public List<ProductClassClass> lst {get; set;}
+
     }
 
     // COMMODITY, COMMODITY_NAME,SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKUAtt_Value1 AS SIZE, SKUAtt_Value2 AS COLOUR, LIST_PRICE,DISCOUNT,INSTOCK,PRICE_EFFECTIVE_DATE

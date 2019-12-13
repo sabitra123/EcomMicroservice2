@@ -16,6 +16,8 @@ namespace EcomMicroservice2.Models
                                                         " INNER JOIN XXIBM_PRODUCT_STYLE AS STYLE ON STYLE.CATALOGUE_CATEGORY = SKU.CATALOGUE_CATEGORY "+
                                                         " INNER JOIN XXIBM_PRODUCT_PRICING AS PRICING ON PRICING.ITEM_NUMBER = SKU.ITEM_NUMBER ";
 
+        public static string getAllMenuDetails = " Select DISTINCT FAMILY, FAMILY_NAME ,  CLASS, CLASS_NAME from  XXIBM_PRODUCT_CATALOGUE ";
+
 
 
 

@@ -19,20 +19,24 @@ namespace EcomMicroservice2.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public JsonResult Get()
         {
-            return new string[] { "value2", "value3" };
+              DatabaseCURD dbCurd = new DatabaseCURD();
+              List<ProductSegmentClass> lst = dbCurd.GetSegmentProduct(Configuration["ConnectionStrings:Default"]);
+              return new JsonResult(lst); 
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
+            List<ProductMenuDetails> lst = new List<ProductMenuDetails>();
+            if(id==1)
+            {
               DatabaseCURD dbCurd = new DatabaseCURD();
-              List<ProductSegmentClass> lst = dbCurd.GetSegmentProduct(Configuration["ConnectionStrings:Default"]);
-              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
-              //return "value";
-            
+              lst = dbCurd.GetMenuDetails(Configuration["ConnectionStrings:Default"]);
+            }
+            return new JsonResult(lst);
         }
 
         // POST api/values

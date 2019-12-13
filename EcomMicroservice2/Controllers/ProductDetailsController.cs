@@ -8,6 +8,7 @@ namespace EcomMicroservice2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AddHeader("Access-Control-Allow-Origin", "*")]
     public class ProductDetailsController : ControllerBase
     {
         public IConfiguration Configuration { get; }
@@ -15,7 +16,7 @@ namespace EcomMicroservice2.Controllers
         {
             Configuration = _configuration;
         }
-        
+
         // GET api/values/5
         public JsonResult Get()
         {

@@ -262,6 +262,76 @@ namespace EcomMicroservice2.Models
             }
         }
 
+
+        public List<ProductMenuDetails> GetMenuDetails(string connectionString)
+        {
+            List<ProductMenuDetails> lstProduct =  new List<ProductMenuDetails>();
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllMenuDetails, conn);                
+                    conn.Open();
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    Int64 familyId = 0 ;
+                    ProductMenuDetails pdc = null;
+                    List<ProductClassClass> lstLocal = null;
+ 
+                    while (dataReader.Read())  
+                    {  
+                        
+                        if(familyId == 0 || familyId != Convert.ToInt32(dataReader["FAMILY"]))
+                        {       
+                            if(pdc != null && lstLocal != null)       
+                            {
+                                pdc.lst = lstLocal;
+                                lstProduct.Add(pdc);
+                            }
+
+                            pdc = new ProductMenuDetails();
+                            lstLocal = new List<ProductClassClass>(); 
+
+                            pdc.FAMILY = Convert.ToInt32(dataReader["FAMILY"]); 
+                            pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]);
+
+                            ProductClassClass pcc = new ProductClassClass();
+                            pcc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]);
+                            pcc.CLASS = Convert.ToInt32(dataReader["CLASS"]); 
+                            lstLocal.Add(pcc);
+                          
+                            familyId =  Convert.ToInt32(dataReader["FAMILY"]);
+                        }  
+                        else if(pdc != null && lstLocal != null)
+                        {
+                            ProductClassClass pcc = new ProductClassClass();
+                            pcc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]);
+                            pcc.CLASS = Convert.ToInt32(dataReader["CLASS"]); 
+                            lstLocal.Add(pcc);
+                        }
+                    }  
+                    if(pdc != null && lstLocal != null)       
+                    {
+                        pdc.lst = lstLocal;
+                        lstProduct.Add(pdc);
+                    }
+                    conn.Close();
+                }
+                
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
         private MySqlConnection GetConnection(string connectionSt)    
         {    
            return new MySqlConnection(connectionSt); 
