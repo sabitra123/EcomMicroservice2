@@ -263,7 +263,7 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public List<ProductMenuDetails> GetMenuDetails(string connectionString)
+        public List<ProductMenuDetails> GetMenuDetails(string connectionString , Int32 segmentID)
         {
             List<ProductMenuDetails> lstProduct =  new List<ProductMenuDetails>();
             try{
@@ -272,6 +272,10 @@ namespace EcomMicroservice2.Models
                       
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllMenuDetails, conn);                
                     conn.Open();
+
+                    cmd.Parameters.AddWithValue("@SEGMENT", segmentID);
+                    cmd.Prepare();
+
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     Int64 familyId = 0 ;

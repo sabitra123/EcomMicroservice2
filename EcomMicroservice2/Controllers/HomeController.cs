@@ -31,11 +31,9 @@ namespace EcomMicroservice2.Controllers
         public JsonResult Get(int id)
         {
             List<ProductMenuDetails> lst = new List<ProductMenuDetails>();
-            if(id==1)
-            {
-              DatabaseCURD dbCurd = new DatabaseCURD();
-              lst = dbCurd.GetMenuDetails(Configuration["ConnectionStrings:Default"]);
-            }
+            DatabaseCURD dbCurd = new DatabaseCURD();
+            lst = dbCurd.GetMenuDetails(Configuration["ConnectionStrings:Default"],id);
+
             return new JsonResult(lst);
         }
 
