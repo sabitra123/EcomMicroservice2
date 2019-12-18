@@ -211,7 +211,7 @@ namespace EcomMicroservice2.Models
             }
         }
         // List<ProductDetailsClass>
-        public List<ProductDetailsClass> GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
+        public List<ProductDetailsClass> GetProductDetailsAll(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
@@ -252,6 +252,309 @@ namespace EcomMicroservice2.Models
                     {
                         sbQuery.Append(" AND STYLE.BRAND=@BRAND ");
                         cmd.Parameters.AddWithValue("@BRAND", Brand);
+                    }
+                    
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+
+
+                       
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
+
+        public List<ProductDetailsClass> GetProductDetailsExBrand(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    
+                    if(Family != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
+                        cmd.Parameters.AddWithValue("@FAMILY", Family);
+                    }
+
+                    if(Class != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.CLASS=@CLASS ");
+                        cmd.Parameters.AddWithValue("@CLASS", Class);
+                    }
+
+                    if(Commodity != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.COMMODITY=@COMMODITY ");
+                        cmd.Parameters.AddWithValue("@COMMODITY", Commodity);
+                    }
+                    // Color,string Brand
+                    if(!String.IsNullOrEmpty(Color))
+                    {
+                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2=@COLOR ");
+                        cmd.Parameters.AddWithValue("@COLOR", Color);
+                    }
+                    
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+
+
+                       
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
+        public List<ProductDetailsClass> GetProductDetailsExColor(string connectionString,Int32 Family,Int32 Class,Int32 Commodity)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    
+                    if(Family != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
+                        cmd.Parameters.AddWithValue("@FAMILY", Family);
+                    }
+
+                    if(Class != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.CLASS=@CLASS ");
+                        cmd.Parameters.AddWithValue("@CLASS", Class);
+                    }
+
+                    if(Commodity != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.COMMODITY=@COMMODITY ");
+                        cmd.Parameters.AddWithValue("@COMMODITY", Commodity);
+                    }
+                    
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+
+
+                       
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
+
+        public List<ProductDetailsClass> GetProductDetailsExCommodity(string connectionString,Int32 Family,Int32 Class)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    
+                    if(Family != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
+                        cmd.Parameters.AddWithValue("@FAMILY", Family);
+                    }
+
+                    if(Class != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.CLASS=@CLASS ");
+                        cmd.Parameters.AddWithValue("@CLASS", Class);
+                    }
+                    
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+
+
+                       
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
+
+        public List<ProductDetailsClass> GetProductDetailsExClass(string connectionString,Int32 Family)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    
+                    if(Family != 0)
+                    {
+                        sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
+                        cmd.Parameters.AddWithValue("@FAMILY", Family);
                     }
                     
                     cmd.CommandText = sbQuery.ToString();

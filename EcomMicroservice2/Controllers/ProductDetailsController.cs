@@ -23,7 +23,56 @@ namespace EcomMicroservice2.Controllers
         {
             
               DatabaseCURD dbCurd = new DatabaseCURD();
-             List<ProductDetailsClass> lst = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+             List<ProductDetailsClass> lst = dbCurd.GetProductDetailsAll(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+            // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
+        }
+
+                //Family,Class,Commodity,Color,Brand
+        [HttpGet("{Family}/{Class}/{Commodity}/{Color}")]
+        public JsonResult Get(Int32 Family,Int32 Class,Int32 Commodity,string Color)
+        {
+            
+              DatabaseCURD dbCurd = new DatabaseCURD();
+             List<ProductDetailsClass> lst = dbCurd.GetProductDetailsExBrand(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color);
+            // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
+        }
+
+        [HttpGet("{Family}/{Class}/{Commodity}")]
+        public JsonResult Get(Int32 Family,Int32 Class,Int32 Commodity)
+        {
+            
+              DatabaseCURD dbCurd = new DatabaseCURD();
+             List<ProductDetailsClass> lst = dbCurd.GetProductDetailsExColor(Configuration["ConnectionStrings:Default"],Family,Class,Commodity);
+            // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
+        }
+
+        [HttpGet("{Family}/{Class}")]
+        public JsonResult Get(Int32 Family,Int32 Class)
+        {
+            
+            DatabaseCURD dbCurd = new DatabaseCURD();
+            List<ProductDetailsClass> lst = dbCurd.GetProductDetailsExCommodity(Configuration["ConnectionStrings:Default"],Family,Class);
+            // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
+        }
+
+        [HttpGet("{Family}")]
+        public JsonResult Get(Int32 Family)
+        {
+            
+            DatabaseCURD dbCurd = new DatabaseCURD();
+            List<ProductDetailsClass> lst = dbCurd.GetProductDetailsExClass(Configuration["ConnectionStrings:Default"],Family);
             // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
               return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
               //return "value";
