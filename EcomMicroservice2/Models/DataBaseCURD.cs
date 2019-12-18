@@ -69,7 +69,7 @@ namespace EcomMicroservice2.Models
                      //  pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
                      //  pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
                      //  pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
-                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.BRAND = Convert.ToString(dataReader["COLUMNS"]);
                        
                        lstProduct.Add(pdc);  
                     }  
