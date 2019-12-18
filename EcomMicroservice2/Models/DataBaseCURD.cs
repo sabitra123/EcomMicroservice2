@@ -211,8 +211,9 @@ namespace EcomMicroservice2.Models
             }
         }
         // List<ProductDetailsClass>
-        public List<ProductDetailsClass> GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
+        public string GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
+            string QueryRes = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
@@ -287,17 +288,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return lstProduct;
+                return QueryRes; //lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return QueryRes+ex.StackTrace+ex.Message;//lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return QueryRes+ex.StackTrace+ex.Message; //lstProduct;
             }
         }
 
