@@ -254,8 +254,8 @@ namespace EcomMicroservice2.Models
                         cmd.Parameters.AddWithValue("@BRAND", Brand);
                     }
                     
+                    cmd.CommandText = sbQuery.ToString();
                     cmd.Prepare();
-
                     conn.Open();
                     MySqlDataReader dataReader = cmd.ExecuteReader();
  
