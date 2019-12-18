@@ -69,7 +69,7 @@ namespace EcomMicroservice2.Models
                      //  pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
                      //  pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
                      //  pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
-                       pdc.BRAND = Convert.ToString(dataReader["COLUMNS"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        
                        lstProduct.Add(pdc);  
                     }  
@@ -211,9 +211,8 @@ namespace EcomMicroservice2.Models
             }
         }
         // List<ProductDetailsClass>
-        public string GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
+        public List<ProductDetailsClass> GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
-            string queryReturn = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
@@ -245,7 +244,7 @@ namespace EcomMicroservice2.Models
                     // Color,string Brand
                     if(!String.IsNullOrEmpty(Color))
                     {
-                        sbQuery.Append(" AND SKU.SKUAtt_Value2=@COLOR ");
+                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2=@COLOR ");
                         cmd.Parameters.AddWithValue("@COLOR", Color);
                     }
 
@@ -256,12 +255,11 @@ namespace EcomMicroservice2.Models
                     }
                     
                     cmd.CommandText = sbQuery.ToString();
-                    queryReturn = cmd.CommandText;
+
                     conn.Open();
                     cmd.Prepare();
 
                     MySqlDataReader dataReader = cmd.ExecuteReader();
-                    queryReturn += "Executed:-"+conn.State.ToString();
                     while (dataReader.Read())  
                     {  
                        ProductDetailsClass pdc = new ProductDetailsClass();
@@ -289,17 +287,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return queryReturn; // lstProduct;
+                return lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return queryReturn+ex.StackTrace+ex.Message; // lstProduct;
+                return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return queryReturn+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
         }
 
