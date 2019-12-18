@@ -211,9 +211,8 @@ namespace EcomMicroservice2.Models
             }
         }
         // List<ProductDetailsClass>
-        public string GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
+        public List<ProductDetailsClass> GetProductDetails(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
         {
-            string QueryRes = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
@@ -277,7 +276,7 @@ namespace EcomMicroservice2.Models
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
                        pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
                        pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
-                       pdc.INSTOCK = Convert.ToString(dataReader["INSTOCK"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                        pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
 
 
@@ -288,17 +287,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return QueryRes; //lstProduct;
+                return lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return QueryRes+ex.StackTrace+ex.Message;//lstProduct;
+                return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return QueryRes+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
         }
 
