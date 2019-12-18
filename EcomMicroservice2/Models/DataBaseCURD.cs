@@ -258,9 +258,10 @@ namespace EcomMicroservice2.Models
                     cmd.CommandText = sbQuery.ToString();
                     queryReturn = cmd.CommandText;
                     cmd.Prepare();
+
                     conn.Open();
                     MySqlDataReader dataReader = cmd.ExecuteReader();
- 
+                    queryReturn += "Executed:-"+conn.State.ToString();
                     while (dataReader.Read())  
                     {  
                        ProductDetailsClass pdc = new ProductDetailsClass();
