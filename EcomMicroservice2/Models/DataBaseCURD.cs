@@ -469,9 +469,8 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public string GetProductDetailsExCommodity(string connectionString,Int32 Family,Int32 Class)
+        public List<ProductDetailsClass> GetProductDetailsExCommodity(string connectionString,Int32 Family,Int32 Class)
         {
-            string QueryTest = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
@@ -515,8 +514,8 @@ namespace EcomMicroservice2.Models
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
-                     //  pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
-                     //  pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
                        pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
                        pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
@@ -530,17 +529,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return QueryTest; // lstProduct;
+                return  lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return QueryTest+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return QueryTest+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
         }
 
