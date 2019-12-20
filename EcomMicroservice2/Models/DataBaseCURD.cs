@@ -515,8 +515,8 @@ namespace EcomMicroservice2.Models
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
-                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
-                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                     //  pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                     //  pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
                        pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
                        pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
