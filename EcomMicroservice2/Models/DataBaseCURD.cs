@@ -253,7 +253,8 @@ namespace EcomMicroservice2.Models
                         sbQuery.Append(" AND STYLE.BRAND=@BRAND ");
                         cmd.Parameters.AddWithValue("@BRAND", Brand);
                     }
-                    
+                    sbQuery.Append("  ORDER BY FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME, SKU.STYLE_ITEM, SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1 AS SIZE, SKU_ATTRIBUTE_VALUE2 AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE ");
+
                     cmd.CommandText = sbQuery.ToString();
 
                     conn.Open();
@@ -338,6 +339,7 @@ namespace EcomMicroservice2.Models
                         sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2=@COLOR ");
                         cmd.Parameters.AddWithValue("@COLOR", Color);
                     }
+                    sbQuery.Append("  ORDER BY FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME, SKU.STYLE_ITEM, SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1 AS SIZE, SKU_ATTRIBUTE_VALUE2 AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE ");
                     
                     cmd.CommandText = sbQuery.ToString();
 
@@ -416,6 +418,8 @@ namespace EcomMicroservice2.Models
                         sbQuery.Append(" AND CATALOGUE.COMMODITY=@COMMODITY ");
                         cmd.Parameters.AddWithValue("@COMMODITY", Commodity);
                     }
+
+                    sbQuery.Append("  ORDER BY FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME, SKU.STYLE_ITEM, SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1 AS SIZE, SKU_ATTRIBUTE_VALUE2 AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE ");
                     
                     cmd.CommandText = sbQuery.ToString();
 
@@ -490,6 +494,8 @@ namespace EcomMicroservice2.Models
                         cmd.Parameters.AddWithValue("@CLASS", Class);
                     }
                     
+                    sbQuery.Append("  ORDER BY FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME, SKU.STYLE_ITEM, SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1 AS SIZE, SKU_ATTRIBUTE_VALUE2 AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE ");
+                    
                     cmd.CommandText = sbQuery.ToString();
 
                     conn.Open();
@@ -556,7 +562,8 @@ namespace EcomMicroservice2.Models
                         sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
                         cmd.Parameters.AddWithValue("@FAMILY", Family);
                     }
-                    
+                    sbQuery.Append("  ORDER BY FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME, SKU.STYLE_ITEM, SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1 AS SIZE, SKU_ATTRIBUTE_VALUE2 AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE ");
+
                     cmd.CommandText = sbQuery.ToString();
 
                     conn.Open();
