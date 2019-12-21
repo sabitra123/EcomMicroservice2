@@ -620,7 +620,6 @@ namespace EcomMicroservice2.Models
 
         public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
         {
-            string Result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder();
@@ -637,7 +636,6 @@ namespace EcomMicroservice2.Models
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
                     cmd.CommandText = sbQuery.ToString();
-                    Result = cmd.CommandText;
                     conn.Open();
                     cmd.Prepare();
 

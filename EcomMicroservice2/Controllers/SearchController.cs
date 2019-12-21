@@ -21,7 +21,6 @@ namespace EcomMicroservice2.Controllers
         [HttpGet("{SearchValue}")]
         public JsonResult Get(string SearchValue)
         {
-            string result = string.Empty;
             DatabaseCURD dbCurd = new DatabaseCURD();
             //result = dbCurd.GetSearchProductDetails(Configuration["ConnectionStrings:Default"],SearchValue);
             List<ProductDetailsClass> lst = dbCurd.GetSearchProductDetails(Configuration["ConnectionStrings:Default"],SearchValue);
