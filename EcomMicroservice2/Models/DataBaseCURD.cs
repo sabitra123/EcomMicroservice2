@@ -215,14 +215,16 @@ namespace EcomMicroservice2.Models
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
-            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+            StringBuilder sbQuery = new StringBuilder();
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
 
                       
-                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn); 
+
+                    sbQuery.Append(cmd.CommandText);               
                     
                     if(Family != 0)
                     {
@@ -307,7 +309,7 @@ namespace EcomMicroservice2.Models
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
-            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+            StringBuilder sbQuery = new StringBuilder();
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
@@ -315,7 +317,8 @@ namespace EcomMicroservice2.Models
 
                       
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
-                    
+                    sbQuery.Append(cmd.CommandText);
+
                     if(Family != 0)
                     {
                         sbQuery.Append(" AND CATALOGUE.FAMILY=@FAMILY ");
@@ -392,14 +395,15 @@ namespace EcomMicroservice2.Models
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
-            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+            StringBuilder sbQuery = new StringBuilder();
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
 
                       
-                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn); 
+                    sbQuery.Append(cmd.CommandText);               
                     
                     if(Family != 0)
                     {
@@ -473,14 +477,15 @@ namespace EcomMicroservice2.Models
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
-            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+            StringBuilder sbQuery = new StringBuilder();
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
 
                       
-                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn); 
+                    sbQuery.Append(cmd.CommandText);               
                     
                     if(Family != 0)
                     {
@@ -548,14 +553,15 @@ namespace EcomMicroservice2.Models
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
-            StringBuilder sbQuery = new StringBuilder(QueryStringClass.getAllProductWithDetails);
+            StringBuilder sbQuery = new StringBuilder();
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
 
                       
-                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);                
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn);
+                    sbQuery.Append(cmd.CommandText);                
                     
                     if(Family != 0)
                     {
@@ -612,6 +618,67 @@ namespace EcomMicroservice2.Models
         }
 
 
+        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder();
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+                     
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
+                    sbQuery.Append(cmd.CommandText);
+                                    
+                    cmd.Parameters.AddWithValue("@SEARCHVALUE", SearchValue);
+
+                    sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
+
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                       
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
         public List<ProductMenuDetails> GetMenuDetails(string connectionString , Int32 segmentID)
         {
             List<ProductMenuDetails> lstProduct =  new List<ProductMenuDetails>();
