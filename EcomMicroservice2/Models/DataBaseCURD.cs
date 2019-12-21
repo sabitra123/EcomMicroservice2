@@ -618,7 +618,7 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public string GetSearchProductDetails(string connectionString,string SearchValue)
+        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
         {
             string Result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
@@ -631,7 +631,7 @@ namespace EcomMicroservice2.Models
                      
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
                     sbQuery.Append(cmd.CommandText);
-                    
+
                     cmd.Parameters.AddWithValue("@SEARCHVALUE", string.Format("%{0}%", SearchValue));
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
@@ -667,17 +667,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return Result; //lstProduct;
+                return lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return Result+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return Result+ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
         }
         public List<ProductMenuDetails> GetMenuDetails(string connectionString , Int32 segmentID)
