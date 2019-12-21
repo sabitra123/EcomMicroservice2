@@ -631,8 +631,8 @@ namespace EcomMicroservice2.Models
                      
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
                     sbQuery.Append(cmd.CommandText);
-
-                    cmd.Parameters.AddWithValue("@SEARCHVALUE", SearchValue);
+                    
+                    cmd.Parameters.AddWithValue("@SEARCHVALUE", string.Format("%{0}%", SearchValue));
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
