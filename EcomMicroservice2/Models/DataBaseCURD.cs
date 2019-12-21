@@ -618,8 +618,9 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
+        public string GetSearchProductDetails(string connectionString,string SearchValue)
         {
+            string Result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder();
@@ -630,13 +631,13 @@ namespace EcomMicroservice2.Models
                      
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
                     sbQuery.Append(cmd.CommandText);
-                                    
+
                     cmd.Parameters.AddWithValue("@SEARCHVALUE", SearchValue);
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
                     cmd.CommandText = sbQuery.ToString();
-
+                    Result = cmd.CommandText;
                     conn.Open();
                     cmd.Prepare();
 
@@ -666,17 +667,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return lstProduct;
+                return Result; //lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return Result+ex.StackTrace+ex.Message; //lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return Result+ex.StackTrace+ex.Message; //lstProduct;
             }
         }
         public List<ProductMenuDetails> GetMenuDetails(string connectionString , Int32 segmentID)
