@@ -36,7 +36,7 @@ namespace EcomMicroservice2
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
