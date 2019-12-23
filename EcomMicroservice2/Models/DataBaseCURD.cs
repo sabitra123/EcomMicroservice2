@@ -91,6 +91,88 @@ namespace EcomMicroservice2.Models
             }
         }
 
+        public List<ProductColorClass> GetAllColor(string connectionString)
+        {
+            List<ProductColorClass> lstProduct =  new List<ProductColorClass>();
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getDistinctColorProduct, conn);                
+                    conn.Open();
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+ 
+                    while (dataReader.Read())  
+                    {  
+                        ProductColorClass pdc = new ProductColorClass();
+
+			         //  pdc.ITEM_NO = Convert.ToInt32(dataReader["ITEM_NUMBER"]);        
+                     //  pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
+                     //  pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
+                     //  pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
+                       pdc.COLOR = Convert.ToString(dataReader["COLOR"]);
+                       
+                       lstProduct.Add(pdc);  
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
+        public List<ProductSizeClass> GetAllSize(string connectionString)
+        {
+            List<ProductSizeClass> lstProduct =  new List<ProductSizeClass>();
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getDistinctSizeProduct, conn);                
+                    conn.Open();
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+ 
+                    while (dataReader.Read())  
+                    {  
+                        ProductSizeClass pdc = new ProductSizeClass();
+
+			         //  pdc.ITEM_NO = Convert.ToInt32(dataReader["ITEM_NUMBER"]);        
+                     //  pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);   
+                     //  pdc.CATALOGUE_CATEGORY = Convert.ToInt32(dataReader["CATALOGUE_CATEGORY"]);        
+                     //  pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);       
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       
+                       lstProduct.Add(pdc);  
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
         public List<ProductClassClass> GetClassByID(string connectionString, Int32 familyId)
         {
             List<ProductClassClass> lstProduct =  new List<ProductClassClass>();

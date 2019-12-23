@@ -9,6 +9,9 @@ namespace EcomMicroservice2.Models
         public static string getDistinctClassProduct = "select DISTINCT CLASS, CLASS_NAME from XXIBM_PRODUCT_CATALOGUE WHERE FAMILY=@FAMILY  ORDER BY CLASS";
         public static string getDistinctCommodityProduct = "select DISTINCT COMMODITY, COMMODITY_NAME from XXIBM_PRODUCT_CATALOGUE WHERE CLASS=@CLASS  ORDER BY COMMODITY";
         public static string getDistinctBrandProduct = "select DISTINCT BRAND from XXIBM_PRODUCT_STYLE  ORDER BY BRAND";
+        public static string getDistinctSizeProduct = "select DISTINCT  SKU_ATTRIBUTE_VALUE1  AS SIZE from XXIBM_PRODUCT_SKU  ORDER BY SKU_ATTRIBUTE_VALUE1";
+        public static string getDistinctColorProduct = "select DISTINCT  SKU_ATTRIBUTE_VALUE2  AS COLOUR from XXIBM_PRODUCT_SKU  ORDER BY SKU_ATTRIBUTE_VALUE2";
+
 
         public static string getAllProductWithDetails = " Select FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME,SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1  AS SIZE, SKU_ATTRIBUTE_VALUE2  AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE " +
                                                         " FROM XXIBM_PRODUCT_CATALOGUE AS CATALOGUE " +
