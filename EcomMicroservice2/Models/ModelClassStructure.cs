@@ -82,7 +82,7 @@ namespace EcomMicroservice2.Models
        // public string DESCRIPTION { get; set; }
       //  public string LONG_DESCRIPTION { get; set; }
       //  public Int32 CATALOGUE_CATEGORY { get; set; }
-        public string COLOR { get; set; }
+        public string COLOUR { get; set; }
     }
 
         public class ProductSizeClass
