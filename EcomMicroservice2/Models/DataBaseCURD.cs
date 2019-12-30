@@ -730,7 +730,7 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
