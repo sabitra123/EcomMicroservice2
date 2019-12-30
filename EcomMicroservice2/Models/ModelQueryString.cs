@@ -24,7 +24,7 @@ namespace EcomMicroservice2.Models
                                                         " FROM XXIBM_PRODUCT_CATALOGUE AS CATALOGUE " +
                                                         " LEFT JOIN XXIBM_PRODUCT_SKU AS SKU ON CATALOGUE.COMMODITY = SKU.CATALOGUE_CATEGORY " +
                                                         " LEFT JOIN XXIBM_PRODUCT_STYLE AS STYLE ON CATALOGUE.COMMODITY = STYLE.CATALOGUE_CATEGORY "+
-                                                        " LEFT JOIN XXIBM_PRODUCT_PRICING AS PRICING ON CASE WHEN  SKU.ITEM_NUMBER IS NULL THEN 1001 ELSE SKU.ITEM_NUMBER END = PRICING.ITEM_NUMBER   ";
+                                                        " LEFT JOIN XXIBM_PRODUCT_PRICING AS PRICING ON PRICING.ITEM_NUMBER =  SKU.ITEM_NUMBER AND SKU.ITEM_NUMBER IS NOT NULL ";
 
         public static string getSearchProductWithDetails = " Select FAMILY_NAME, CLASS_NAME, COMMODITY, COMMODITY_NAME,SKU.ITEM_NUMBER, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION,BRAND,SKU_ATTRIBUTE_VALUE1  AS SIZE, SKU_ATTRIBUTE_VALUE2  AS COLOUR, LIST_PRICE,DISCOUNT,IN_STOCK,PRICE_EFFECTIVE_DATE " +
                                                         " FROM XXIBM_PRODUCT_CATALOGUE AS CATALOGUE " +
