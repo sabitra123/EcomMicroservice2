@@ -699,7 +699,7 @@ namespace EcomMicroservice2.Models
             }
         }
 
-        public string GetProductDetailsAllData(string connectionString)
+        public List<ProductDetailsClass> GetProductDetailsAllData(string connectionString)
         {
             string errorSt = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
@@ -749,19 +749,19 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return errorSt; //lstProduct;
+                return lstProduct;
             }
             catch(MySqlException ex)
             {   
                 errorSt = ex.StackTrace+ex.Message;
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return errorSt ; //lstProduct;
+                return  lstProduct; //errorSt;
             }
             catch(Exception ex)
             {
                 errorSt = ex.StackTrace+ex.Message;
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return errorSt; //lstProduct;
+                return lstProduct; //errorSt;
             }
         }
 

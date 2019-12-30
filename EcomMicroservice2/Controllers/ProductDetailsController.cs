@@ -79,14 +79,14 @@ namespace EcomMicroservice2.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public JsonResult Get()
         {
             string errorSt = string.Empty;
             DatabaseCURD dbCurd = new DatabaseCURD();
-            // List<ProductDetailsClass> lst = dbCurd.GetProductDetailsAllData(Configuration["ConnectionStrings:Default"]);
-            errorSt = dbCurd.GetProductDetailsAllData(Configuration["ConnectionStrings:Default"]);;
+            List<ProductDetailsClass> lst = dbCurd.GetProductDetailsAllData(Configuration["ConnectionStrings:Default"]);
+            //errorSt = dbCurd.GetProductDetailsAllData(Configuration["ConnectionStrings:Default"]);;
             // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
-              return errorSt ; //new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
               //return "value";
             
         }
