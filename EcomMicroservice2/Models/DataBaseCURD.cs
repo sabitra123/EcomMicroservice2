@@ -293,7 +293,7 @@ namespace EcomMicroservice2.Models
             }
         }
         // List<ProductDetailsClass>
-        public List<ProductDetailsClass> GetProductDetailsAll(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand)
+        public List<ProductDetailsClass> GetProductDetailsAll(string connectionString,Int32 Family,Int32 Class,Int32 Commodity,string Color,string Brand, string Size)
         {
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
@@ -328,14 +328,20 @@ namespace EcomMicroservice2.Models
                     // Color,string Brand
                     if(!String.IsNullOrEmpty(Color))
                     {
-                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2=@COLOR ");
+                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2 IN ( @COLOR )");
                         cmd.Parameters.AddWithValue("@COLOR", Color);
                     }
 
                     if(!String.IsNullOrEmpty(Brand))
                     {
-                        sbQuery.Append(" AND STYLE.BRAND=@BRAND ");
+                        sbQuery.Append(" AND STYLE.BRAND IN ( @BRAND )");
                         cmd.Parameters.AddWithValue("@BRAND", Brand);
+                    }
+
+                    if(!String.IsNullOrEmpty(Size))
+                    {
+                        sbQuery.Append(" AND SKU_ATTRIBUTE_VALUE1 IN ( @SIZE )");
+                        cmd.Parameters.AddWithValue("@SIZE", Size);
                     }
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2, LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
