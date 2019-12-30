@@ -133,18 +133,18 @@ namespace EcomMicroservice2.Models
 
     public string FAMILY_NAME {get; set;}
     public string CLASS_NAME { get; set; }
-    public Int32? COMMODITY { get; set; }
+    public Int32 COMMODITY { get; set; }
     public string COMMODITY_NAME { get; set; }
-    public Int32? ITEM_NUMBER { get; set; }
+    public Int32 ITEM_NUMBER { get; set; }
     public string DESCRIPTION { get; set; } 
     public string LONG_DESCRIPTION { get; set; }
     public string BRAND { get; set; }
     public string SIZE { get; set; }
     public string COLOUR { get; set; }
-    public decimal? LIST_PRICE { get; set; }
-    public decimal? DISCOUNT { get; set; }
+    public decimal LIST_PRICE { get; set; }
+    public decimal DISCOUNT { get; set; }
     public string INSTOCK { get; set; }
-    public DateTime? PRICE_EFFECTIVE_DATE { get; set; }
+    public DateTime PRICE_EFFECTIVE_DATE { get; set; }
     }
 
 

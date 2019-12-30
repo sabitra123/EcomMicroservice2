@@ -739,7 +739,7 @@ namespace EcomMicroservice2.Models
                        pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
                        pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Now : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
                       
                        lstProduct.Add(pdc);
                     }  
