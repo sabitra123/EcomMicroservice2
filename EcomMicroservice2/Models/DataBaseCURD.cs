@@ -752,6 +752,22 @@ namespace EcomMicroservice2.Models
             }
             catch(MySqlException ex)
             {
+                ProductDetailsClass pdc = new ProductDetailsClass();
+                pdc.FAMILY_NAME = ex.StackTrace;
+                pdc.CLASS_NAME = ex.Message;
+                pdc.COMMODITY = 1; 
+                       pdc.COMMODITY_NAME = "error";  
+                       pdc.ITEM_NUMBER = 1; 
+                       pdc.DESCRIPTION =  "error";
+                       pdc.LONG_DESCRIPTION =  "error";
+                       pdc.BRAND =  "error";
+                       pdc.SIZE =  "error";
+                       pdc.COLOUR =  "error";
+                       pdc.LIST_PRICE = Convert.ToDecimal(0.0);
+                       pdc.DISCOUNT = Convert.ToDecimal(0.0);
+                       pdc.INSTOCK = Convert.ToString(0.0);
+                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime("29-09-2019");
+                 lstProduct.Add(pdc);      
                 Console.WriteLine(ex.StackTrace+ex.Message);
                 return lstProduct;
             }
