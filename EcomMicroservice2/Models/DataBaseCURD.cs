@@ -353,19 +353,17 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-
-                       
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
                        lstProduct.Add(pdc);
                     }  
 
@@ -440,19 +438,17 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-
-                       
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
                        lstProduct.Add(pdc);
                     }  
 
@@ -521,19 +517,17 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-
-                       
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
                        lstProduct.Add(pdc);
                     }  
 
@@ -597,19 +591,17 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-
-                       
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
                        lstProduct.Add(pdc);
                     }  
 
@@ -666,19 +658,17 @@ namespace EcomMicroservice2.Models
                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-
-                       
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
                        lstProduct.Add(pdc);
                     }  
 
