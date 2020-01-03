@@ -334,14 +334,14 @@ namespace EcomMicroservice2.Models
 
                     if(!String.IsNullOrEmpty(Brand))
                     {
-                        sbQuery.Append(" AND STYLE.BRAND IN ( 'Gildan','IWOLLENCE' )");
+                        sbQuery.Append(" AND STYLE.BRAND IN ( "+Brand+" )");
                       //  cmd.Parameters.AddWithValue("@BRAND", Brand);
                     }
 
                     if(!String.IsNullOrEmpty(Size))
                     {
-                        sbQuery.Append(" AND SKU_ATTRIBUTE_VALUE1 IN ( @SIZE )");
-                        cmd.Parameters.AddWithValue("@SIZE", Size);
+                        sbQuery.Append(" AND SKU_ATTRIBUTE_VALUE1 IN ( "+Size+" )");
+                       // cmd.Parameters.AddWithValue("@SIZE", Size);
                     }
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2, LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
