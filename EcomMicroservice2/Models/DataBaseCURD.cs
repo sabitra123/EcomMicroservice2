@@ -334,8 +334,8 @@ namespace EcomMicroservice2.Models
 
                     if(!String.IsNullOrEmpty(Brand))
                     {
-                        sbQuery.Append(" AND STYLE.BRAND IN ( @BRAND )");
-                        cmd.Parameters.AddWithValue("@BRAND", Brand);
+                        sbQuery.Append(" AND STYLE.BRAND IN ( Gildan,IWOLLENCE )");
+                      //  cmd.Parameters.AddWithValue("@BRAND", Brand);
                     }
 
                     if(!String.IsNullOrEmpty(Size))
