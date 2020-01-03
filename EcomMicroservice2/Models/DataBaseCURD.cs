@@ -328,8 +328,8 @@ namespace EcomMicroservice2.Models
                     // Color,string Brand
                     if(!String.IsNullOrEmpty(Color))
                     {
-                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2 IN ( @COLOR )");
-                        cmd.Parameters.AddWithValue("@COLOR", Color);
+                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2 IN ( "+Color+" )");
+                       // cmd.Parameters.AddWithValue("@COLOR", Color);
                     }
 
                     if(!String.IsNullOrEmpty(Brand))
@@ -425,8 +425,8 @@ namespace EcomMicroservice2.Models
                     // Color,string Brand
                     if(!String.IsNullOrEmpty(Color))
                     {
-                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2=@COLOR ");
-                        cmd.Parameters.AddWithValue("@COLOR", Color);
+                        sbQuery.Append(" AND SKU.SKU_ATTRIBUTE_VALUE2 IN ( "+Color+" ) ");
+                        //cmd.Parameters.AddWithValue("@COLOR", Color);
                     }
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2, LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
                     
