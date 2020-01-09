@@ -903,6 +903,74 @@ namespace EcomMicroservice2.Models
             }
         }
 
+        public List<ProductDetailsClass> GetItemDetailsAll(string connectionString,Int32 Item)
+        {
+            List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+
+            StringBuilder sbQuery = new StringBuilder();
+
+            try{
+                using (MySqlConnection conn = GetConnection(connectionString))  
+                {  
+
+                      
+                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getAllProductWithDetails, conn); 
+
+                    sbQuery.Append(cmd.CommandText);               
+                    
+
+                    if(Item != 0)
+                    {
+                        sbQuery.Append(" AND SKU.ITEM_NUMBER = @Item ");
+                        cmd.Parameters.AddWithValue("@Item", Item);
+                    }
+                    sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2, LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
+
+                    cmd.CommandText = sbQuery.ToString();
+
+                    conn.Open();
+                    cmd.Prepare();
+
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())  
+                    {  
+                       ProductDetailsClass pdc = new ProductDetailsClass();
+       
+                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                       pdc.ITEM_NUMBER = dataReader["ITEM_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dataReader["ITEM_NUMBER"]);
+                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                       pdc.LIST_PRICE = dataReader["LIST_PRICE"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                       pdc.DISCOUNT = dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
+                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                       pdc.PRICE_EFFECTIVE_DATE = dataReader["PRICE_EFFECTIVE_DATE"]   == DBNull.Value ? DateTime.Today : Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                      
+                       lstProduct.Add(pdc);
+                    }  
+
+                    conn.Close();
+
+                }
+                return lstProduct;
+            }
+            catch(MySqlException ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace+ex.Message);
+                return lstProduct;
+            }
+        }
+
         public List<decimal> GetDistinctDiscount(string connectionString)
         {
             //string result = string.Empty;
