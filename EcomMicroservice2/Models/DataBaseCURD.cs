@@ -760,9 +760,9 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public string GetSearchProductDetails(string connectionString,string SearchValue)
+        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
         {
-            string result = string.Empty;
+            //string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder();
@@ -787,7 +787,7 @@ namespace EcomMicroservice2.Models
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
                     cmd.CommandText = sbQuery.ToString();
-                    result = sbQuery.ToString();
+                    //result = sbQuery.ToString();
                     conn.Open();
                     cmd.Prepare();
 
@@ -817,17 +817,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return result;//lstProduct;
+                return lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return ex.StackTrace+ex.Message; //lstProduct;
+                return lstProduct;
             }
         }
 
@@ -920,7 +920,8 @@ namespace EcomMicroservice2.Models
                     while (dataReader.Read())  
                     {  
                        decimal resDiscount =  dataReader["DISCOUNT"]  == DBNull.Value ? 0 : Convert.ToDecimal(dataReader["DISCOUNT"]);
-                       lstDiscount.Add(resDiscount);
+                       if(resDiscount != 0)
+                       {lstDiscount.Add(resDiscount);}
                     }  
 
                     conn.Close();
