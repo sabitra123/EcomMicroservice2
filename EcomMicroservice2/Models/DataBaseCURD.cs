@@ -760,8 +760,9 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
+        public string GetSearchProductDetails(string connectionString,string SearchValue)
         {
+            string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
 
             StringBuilder sbQuery = new StringBuilder();
@@ -786,6 +787,7 @@ namespace EcomMicroservice2.Models
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
                     cmd.CommandText = sbQuery.ToString();
+                    result = sbQuery.ToString();
                     conn.Open();
                     cmd.Prepare();
 
@@ -815,17 +817,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return lstProduct;
+                return result;//lstProduct;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return ex.StackTrace+ex.Message; //lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return ex.StackTrace+ex.Message; //lstProduct;
             }
         }
 
@@ -898,8 +900,9 @@ namespace EcomMicroservice2.Models
             }
         }
 
-        public List<decimal> GetDistinctDiscount(string connectionString)
+        public string GetDistinctDiscount(string connectionString)
         {
+            string result = string.Empty;
             List<decimal> lstDiscount = new List<decimal>();
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
@@ -908,7 +911,7 @@ namespace EcomMicroservice2.Models
                       
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getDiscountDistinct, conn); 
 
-                    
+                    result = cmd.CommandText;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())  
                     {  
@@ -919,17 +922,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return lstDiscount;
+                return result;//lstDiscount;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstDiscount;
+                return ex.StackTrace+ex.Message; //lstDiscount;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstDiscount;
+                return ex.StackTrace+ex.Message; //lstDiscount;
             }
         }
 
