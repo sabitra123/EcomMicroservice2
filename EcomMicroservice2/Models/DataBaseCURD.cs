@@ -785,7 +785,7 @@ namespace EcomMicroservice2.Models
                     }
 
                     sbQuery.Append(" WHERE CATALOGUE.FAMILY_NAME IN ( "+sbSearchSt.ToString()+" ) OR CATALOGUE.CLASS_NAME IN ( "+sbSearchSt.ToString()+" ) OR  CATALOGUE.COMMODITY_NAME IN ( "+sbSearchSt.ToString()+" ) "+
-                    " OR  SKU.DESCRIPTION IN ( "+sbSearchSt.ToString()+" ) OR BRAND IN ( "+sbSearchSt.ToString()+" )  OR SKU_ATTRIBUTE_VALUE2 IN ( "+sbSearchSt.ToString()+" )");
+                    " OR  SKU.DESCRIPTION IN ( "+sbSearchSt.ToString()+" ) OR BRAND IN ( "+sbSearchSt.ToString()+" )  OR SKU_ATTRIBUTE_VALUE2 IN ( 'I','am','red' )");
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
