@@ -767,6 +767,8 @@ namespace EcomMicroservice2.Models
 
             StringBuilder sbQuery = new StringBuilder();
 
+            
+
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
@@ -779,10 +781,11 @@ namespace EcomMicroservice2.Models
                     foreach(string value in searchValues)
                     {
                         if(value.Length > 0)
-                        sbSearchSt.Append(value+",");
+                        sbSearchSt.Append("'"+value+"',");
                     }
 
-                    cmd.Parameters.AddWithValue("@SEARCHVALUE", sbSearchSt.ToString());
+                    sbQuery.Append(" WHERE CATALOGUE.FAMILY_NAME IN ( "+sbSearchSt.ToString()+" ) OR CATALOGUE.CLASS_NAME IN ( "+sbSearchSt.ToString()+" ) OR  CATALOGUE.COMMODITY_NAME IN ( "+sbSearchSt.ToString()+" ) "+
+                    " OR  SKU.DESCRIPTION IN ( "+sbSearchSt.ToString()+" ) OR BRAND IN ( "+sbSearchSt.ToString()+" )  OR SKU_ATTRIBUTE_VALUE2 IN ( "+sbSearchSt.ToString()+" )");
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
