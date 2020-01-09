@@ -779,7 +779,7 @@ namespace EcomMicroservice2.Models
                     foreach(string value in searchValues)
                     {
                         if(value.Length > 0)
-                        sbSearchSt.Append("'"+value+"',");
+                        sbSearchSt.Append(value+",");
                     }
 
                     cmd.Parameters.AddWithValue("@SEARCHVALUE", sbSearchSt.ToString());
