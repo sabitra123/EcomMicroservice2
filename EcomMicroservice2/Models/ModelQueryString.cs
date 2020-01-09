@@ -32,8 +32,8 @@ namespace EcomMicroservice2.Models
                                                         " LEFT JOIN XXIBM_PRODUCT_SKU AS SKU ON CATALOGUE.COMMODITY = SKU.CATALOGUE_CATEGORY " +
                                                         " LEFT JOIN XXIBM_PRODUCT_STYLE AS STYLE ON CATALOGUE.COMMODITY = STYLE.CATALOGUE_CATEGORY "+
                                                         " INNER JOIN XXIBM_PRODUCT_PRICING AS PRICING ON SKU.ITEM_NUMBER = PRICING.ITEM_NUMBER   "+
-                                                        " WHERE CATALOGUE.FAMILY_NAME IN @SEARCHVALUE OR CATALOGUE.CLASS_NAME IN @SEARCHVALUE  OR  CATALOGUE.COMMODITY_NAME IN @SEARCHVALUE "+
-                                                        " OR  SKU.DESCRIPTION IN @SEARCHVALUE OR BRAND IN @SEARCHVALUE  OR SKU_ATTRIBUTE_VALUE2 IN @SEARCHVALUE ";
+                                                        " WHERE CATALOGUE.FAMILY_NAME IN ( @SEARCHVALUE ) OR CATALOGUE.CLASS_NAME IN ( @SEARCHVALUE ) OR  CATALOGUE.COMMODITY_NAME IN ( @SEARCHVALUE ) "+
+                                                        " OR  SKU.DESCRIPTION IN ( @SEARCHVALUE ) OR BRAND IN ( @SEARCHVALUE )  OR SKU_ATTRIBUTE_VALUE2 IN ( @SEARCHVALUE )";
         public static string getAllMenuDetails = " Select DISTINCT FAMILY, FAMILY_NAME ,  CLASS, CLASS_NAME from  XXIBM_PRODUCT_CATALOGUE  WHERE SEGMENT=@SEGMENT   ORDER BY FAMILY , FAMILY_NAME";
 
         public static string getDiscountDistinct = " Select DISTINCT DISCOUNT from  XXIBM_PRODUCT_PRICING ORDER BY DISCOUNT";

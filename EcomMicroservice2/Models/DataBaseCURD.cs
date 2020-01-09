@@ -782,7 +782,7 @@ namespace EcomMicroservice2.Models
                         sbSearchSt.Append("'"+value+"',");
                     }
 
-                    cmd.Parameters.AddWithValue("@SEARCHVALUE", string.Format("({0})", sbSearchSt.ToString()));
+                    cmd.Parameters.AddWithValue("@SEARCHVALUE", sbSearchSt.ToString());
 
                     sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
@@ -900,9 +900,9 @@ namespace EcomMicroservice2.Models
             }
         }
 
-        public string GetDistinctDiscount(string connectionString)
+        public List<decimal> GetDistinctDiscount(string connectionString)
         {
-            string result = string.Empty;
+            //string result = string.Empty;
             List<decimal> lstDiscount = new List<decimal>();
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
@@ -911,7 +911,11 @@ namespace EcomMicroservice2.Models
                       
                     MySqlCommand cmd = new MySqlCommand(QueryStringClass.getDiscountDistinct, conn); 
 
-                    result = cmd.CommandText;
+                    //result = cmd.CommandText;
+
+                    conn.Open();
+                    cmd.Prepare();
+
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())  
                     {  
@@ -922,17 +926,17 @@ namespace EcomMicroservice2.Models
                     conn.Close();
 
                 }
-                return result;//lstDiscount;
+                return lstDiscount;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return ex.StackTrace+ex.Message; //lstDiscount;
+                return lstDiscount;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return ex.StackTrace+ex.Message; //lstDiscount;
+                return lstDiscount;
             }
         }
 
