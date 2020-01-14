@@ -812,6 +812,7 @@ namespace EcomMicroservice2.Models
                             
                             lstProduct.Add(pdc);
                         }
+                        result = cmd.CommandText + " "+conn.ToString();;
                         conn.Close(); 
                 } 
                     
