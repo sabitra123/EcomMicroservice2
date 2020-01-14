@@ -764,10 +764,7 @@ namespace EcomMicroservice2.Models
         {
             //string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
-
             StringBuilder sbQuery = new StringBuilder();
-
-            
 
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
@@ -778,50 +775,46 @@ namespace EcomMicroservice2.Models
 
                     string[] searchValues = SearchValue.Split(' ');
                     StringBuilder sbSearchSt = new StringBuilder();
-                    bool flag = false;
+            
                     foreach(string value in searchValues)
                     {
-                        if(value.Length > 0 && !flag)
-                        {sbSearchSt.Append("'"+value+"'"); flag = true;}
-                        else if(value.Length > 0 && flag)
-                        {sbSearchSt.Append(",'"+value+"'");}
-                    }
+                        if(!string.IsNullOrEmpty(value))
+                        {
+                            cmd.Parameters.AddWithValue("@VALUE", String.Format("'%{0}%'", value));
+                        }
 
-                    sbQuery.Append(" WHERE CATALOGUE.FAMILY_NAME IN ( "+sbSearchSt.ToString()+" ) OR CATALOGUE.CLASS_NAME IN ( "+sbSearchSt.ToString()+" ) OR  CATALOGUE.COMMODITY_NAME IN ( "+sbSearchSt.ToString()+" ) "+
-                    " OR  SKU.DESCRIPTION IN ( "+sbSearchSt.ToString()+" ) OR BRAND IN ( "+sbSearchSt.ToString()+" )  OR SKU_ATTRIBUTE_VALUE2 IN ( "+sbSearchSt.ToString()+" )");
+                        sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
 
-                    sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
+                        cmd.CommandText = sbQuery.ToString();
+                        //result = sbQuery.ToString();
+                        conn.Open();
+                        cmd.Prepare();
 
-                    cmd.CommandText = sbQuery.ToString();
-                    //result = sbQuery.ToString();
-                    conn.Open();
-                    cmd.Prepare();
-
-                    MySqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())  
-                    {  
-                       ProductDetailsClass pdc = new ProductDetailsClass();
-       
-                       pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
-                       pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
-                       pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
-                       pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                       pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
-                       pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
-                       pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
-                       pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
-                       pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
-                       pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                       pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                       pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
-                       pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                       pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-                       
-                       lstProduct.Add(pdc);
-                    }  
-
-                    conn.Close();
-
+                        MySqlDataReader dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read())  
+                        {  
+                            ProductDetailsClass pdc = new ProductDetailsClass();
+            
+                            pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                            pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                            pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                            pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                            pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                            pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                            pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                            pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                            pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                            pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                            pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                            pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                            pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                            pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+                            
+                            lstProduct.Add(pdc);
+                        }
+                        conn.Close(); 
+                } 
+                    
                 }
                 return lstProduct;
             }
