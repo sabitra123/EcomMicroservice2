@@ -788,7 +788,8 @@ namespace EcomMicroservice2.Models
 
                                     cmd.CommandText = sbQuery.ToString();
                                     //result = sbQuery.ToString();
-                                    conn.Open();
+                                    if(conn.State != System.Data.ConnectionState.Open)
+                                    { conn.Open(); }
                                     cmd.Prepare();
 
                                     MySqlDataReader dataReader = cmd.ExecuteReader();
