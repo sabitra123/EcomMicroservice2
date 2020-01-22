@@ -768,70 +768,76 @@ namespace EcomMicroservice2.Models
             StringBuilder sbQuery = new StringBuilder();
 
             try{
-                using (MySqlConnection conn = GetConnection(connectionString))  
-                {  
-
-                    string[] searchValues = SearchValue.Split(' ');
-                    StringBuilder sbSearchSt = new StringBuilder();
-            
-                    foreach(string value in searchValues)
-                    {
-                        sbQuery.Clear();
-                        MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
-                        sbQuery.Append(cmd.CommandText);
-
-                        if(!string.IsNullOrEmpty(value))
+                    using (MySqlConnection conn = GetConnection(connectionString))  
+                    {  
+                        string[] searchValues = SearchValue.Split(' ');
+                        StringBuilder sbSearchSt = new StringBuilder();
+                        foreach(string value in searchValues)
                         {
-                            cmd.Parameters.AddWithValue("@VALUE", String.Format("%{0}%", value));
-                        }
-
-                        sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
-
-                        cmd.CommandText = sbQuery.ToString();
-                        //result = sbQuery.ToString();
-                        conn.Open();
-                        cmd.Prepare();
-
-                        MySqlDataReader dataReader = cmd.ExecuteReader();
-                        while (dataReader.Read())  
-                        {  
-                            ProductDetailsClass pdc = new ProductDetailsClass();
-            
-                            pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
-                            pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
-                            pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
-                            pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
-                            pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
-                            pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
-                            pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
-                            pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
-                            pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
-                            pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                            pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                            pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
-                            pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
-                            pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-
-                            //lstProduct.Add(pdc);
-                            ProductDetailsClass pdcTemp;
-                            if (pdc.ITEM_NUMBER != 0)
+                            sbQuery.Clear();
+                            using(MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn))
                             {
-                                diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
-                                if (pdcTemp == null)
-                                {
-                                    diTemp.Add(pdc.ITEM_NUMBER, pdc);
-                                }
+                                    sbQuery.Append(cmd.CommandText);
+
+                                    if (!string.IsNullOrEmpty(value))
+                                    {
+                                        cmd.Parameters.AddWithValue("@VALUE", String.Format("%{0}%", value));
+                                    }
+
+                                    sbQuery.Append("  ORDER BY FAMILY, CLASS, COMMODITY , SKU.STYLE_ITEM, SKU.ITEM_NUMBER, COMMODITY_NAME, BRAND, SKU_ATTRIBUTE_VALUE1 , SKU_ATTRIBUTE_VALUE2 , LIST_PRICE, DISCOUNT, IN_STOCK, PRICE_EFFECTIVE_DATE, SKU.DESCRIPTION,SKU.LONG_DESCRIPTION ");
+
+                                    cmd.CommandText = sbQuery.ToString();
+                                    //result = sbQuery.ToString();
+                                    conn.Open();
+                                    cmd.Prepare();
+
+                                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                                    while (dataReader.Read())  
+                                    {  
+                                        ProductDetailsClass pdc = new ProductDetailsClass();
+                        
+                                        pdc.FAMILY_NAME = Convert.ToString(dataReader["FAMILY_NAME"]); 
+                                        pdc.CLASS_NAME = Convert.ToString(dataReader["CLASS_NAME"]); 
+                                        pdc.COMMODITY = Convert.ToInt32(dataReader["COMMODITY"]); 
+                                        pdc.COMMODITY_NAME = Convert.ToString(dataReader["COMMODITY_NAME"]);  
+                                        pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
+                                        pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
+                                        pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
+                                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
+                                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
+                                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                                        pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
+                                        pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                                        pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
+                                        pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
+
+                                        //lstProduct.Add(pdc);
+                                        ProductDetailsClass pdcTemp;
+                                        if (pdc.ITEM_NUMBER != 0)
+                                        {
+                                            diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
+                                            if (pdcTemp == null)
+                                            {
+                                                diTemp.Add(pdc.ITEM_NUMBER, pdc);
+                                            }
+                                        }
+
+                                    }
+                                    if(!dataReader.IsClosed)
+                                    {
+                                        dataReader.Close();
+                                    }
+                                //result = cmd.CommandText + " "+conn.ToString();;
                             }
-                        }
-                        //result = cmd.CommandText + " "+conn.ToString();;
-                        cmd.Dispose();
-                    } 
-                    
-                }
-                foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
-                {
-                    lstProduct.Add(valueList.Value);
-                }
+
+
+                        }                       
+                    }
+                    foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
+                    {
+                        lstProduct.Add(valueList.Value);
+                    }
                 //return lstProduct;
                 return result;
             }
