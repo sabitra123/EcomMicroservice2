@@ -760,9 +760,9 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
+        public string GetSearchProductDetails(string connectionString,string SearchValue)
         {
-            //string result = string.Empty;
+            string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
             Dictionary<Int32,ProductDetailsClass> diTemp = new Dictionary<int, ProductDetailsClass>();
             StringBuilder sbQuery = new StringBuilder();
@@ -831,17 +831,20 @@ namespace EcomMicroservice2.Models
                 {
                     lstProduct.Add(valueList.Value);
                 }
-                return lstProduct;
+                //return lstProduct;
+                return result;
             }
             catch(MySqlException ex)
             {
-                Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                Console.WriteLine(ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString());
+                return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString();
+                //return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                return lstProduct;
+                return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString();
+                //return lstProduct;
             }
         }
 
