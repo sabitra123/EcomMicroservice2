@@ -840,7 +840,7 @@ namespace EcomMicroservice2.Models
                         lstProduct.Add(valueList.Value);
                     }
                 //return lstProduct;
-                return result;
+                return diTemp.Count.ToString(); //result;
             }
             catch(MySqlException ex)
             {
