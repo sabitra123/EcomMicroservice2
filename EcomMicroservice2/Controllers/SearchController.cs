@@ -27,6 +27,19 @@ namespace EcomMicroservice2.Controllers
             List<ProductDetailsClass> lst = dbCurd.GetSearchProductDetails(Configuration["ConnectionStrings:Default"],SearchValue);
             return new JsonResult(lst);  
         }
+
+        [HttpGet("{Color}/{Brand}/{Size}/{SearchValue}")]
+        public JsonResult Get(string Color,string Brand, string Size, string SearchValue)
+        {
+            
+            DatabaseCURD dbCurd = new DatabaseCURD();
+            List<ProductDetailsClass> lst = dbCurd.GetSearchProductDetailsWFilter(Configuration["ConnectionStrings:Default"],Color,Brand,Size,SearchValue);
+            // string query = dbCurd.GetProductDetails(Configuration["ConnectionStrings:Default"],Family,Class,Commodity,Color,Brand);
+              return new JsonResult(lst);  //dbCurd.GetAllProduct(Configuration["ConnectionStrings:Default"]);
+              //return "value";
+            
+        }
+
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
