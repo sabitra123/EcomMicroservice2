@@ -770,15 +770,16 @@ namespace EcomMicroservice2.Models
             try{
                 using (MySqlConnection conn = GetConnection(connectionString))  
                 {  
-                     
-                    MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
-                    sbQuery.Append(cmd.CommandText);
 
                     string[] searchValues = SearchValue.Split(' ');
                     StringBuilder sbSearchSt = new StringBuilder();
             
                     foreach(string value in searchValues)
                     {
+                        sbQuery.Clear();
+                        MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn);
+                        sbQuery.Append(cmd.CommandText);
+
                         if(!string.IsNullOrEmpty(value))
                         {
                             cmd.Parameters.AddWithValue("@VALUE", String.Format("%{0}%", value));
@@ -810,21 +811,21 @@ namespace EcomMicroservice2.Models
                             pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
                             pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                             pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
-                            
+
                             //lstProduct.Add(pdc);
                             ProductDetailsClass pdcTemp;
-                            if(pdc.ITEM_NUMBER != 0)
+                            if (pdc.ITEM_NUMBER != 0)
                             {
                                 diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
-                                if(pdcTemp == null)
+                                if (pdcTemp == null)
                                 {
-                                    diTemp.Add(pdc.ITEM_NUMBER,pdc);
+                                    diTemp.Add(pdc.ITEM_NUMBER, pdc);
                                 }
                             }
                         }
                         //result = cmd.CommandText + " "+conn.ToString();;
-                        conn.Close(); 
-                } 
+                        cmd.Dispose();
+                    } 
                     
                 }
                 foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
