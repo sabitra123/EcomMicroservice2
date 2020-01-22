@@ -764,6 +764,7 @@ namespace EcomMicroservice2.Models
         {
             //string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
+            Dictionary<Int32,ProductDetailsClass> diTemp = new Dictionary<int, ProductDetailsClass>();
             StringBuilder sbQuery = new StringBuilder();
 
             try{
@@ -810,12 +811,25 @@ namespace EcomMicroservice2.Models
                             pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                             pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
                             
-                            lstProduct.Add(pdc);
+                            //lstProduct.Add(pdc);
+                            ProductDetailsClass pdcTemp;
+                            if(pdc.ITEM_NUMBER != 0)
+                            {
+                                diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
+                                if(pdcTemp == null)
+                                {
+                                    diTemp.Add(pdc.ITEM_NUMBER,pdc);
+                                }
+                            }
                         }
                         //result = cmd.CommandText + " "+conn.ToString();;
                         conn.Close(); 
                 } 
                     
+                }
+                foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
+                {
+                    lstProduct.Add(valueList.Value);
                 }
                 return lstProduct;
             }
