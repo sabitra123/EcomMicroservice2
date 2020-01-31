@@ -765,6 +765,7 @@ namespace EcomMicroservice2.Models
             //string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
             Dictionary<Int32,ProductDetailsClass> diTemp = new Dictionary<int, ProductDetailsClass>();
+            Dictionary<Int32,ProductDetailsClass> diTemp2 = new Dictionary<int, ProductDetailsClass>();
             StringBuilder sbQuery = new StringBuilder();
 
             try{
@@ -773,6 +774,7 @@ namespace EcomMicroservice2.Models
                         string[] searchValues = SearchValue.Split(' ');
                         StringBuilder sbSearchSt = new StringBuilder();
                         bool _flag = false;
+
                         foreach(string value in searchValues)
                         {
                             sbQuery.Clear();
@@ -814,19 +816,13 @@ namespace EcomMicroservice2.Models
                                         pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                                         pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
 
-                                        //lstProduct.Add(pdc);
-                                        ProductDetailsClass pdcTemp;
                                         if (pdc.ITEM_NUMBER != 0 && _flag == false)
                                         {
                                             diTemp.Add(pdc.ITEM_NUMBER, pdc);
                                         }
                                         else if(pdc.ITEM_NUMBER != 0 && _flag == true)
                                         {
-                                            diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
-                                            if (pdcTemp == null)
-                                            {
-                                                diTemp.Remove(pdc.ITEM_NUMBER);
-                                            }
+                                                diTemp2.Add(pdc.ITEM_NUMBER, pdc);
                                         }
 
                                     }
@@ -836,8 +832,12 @@ namespace EcomMicroservice2.Models
                                     }
                                 //result = cmd.CommandText + " "+conn.ToString();;
                             }
-
-                            _flag = true;
+                            if(diTemp.Count > 0 && diTemp2.Count > 0 &&  _flag == true)
+                            {
+                               diTemp = diTemp.Where(x => diTemp2.ContainsKey(x.Key)).ToDictionary(x => x.Key, x => x.Value);
+                               diTemp2.Clear();
+                            }
+                             _flag = true;
                         }                       
                     }
                     foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
@@ -866,6 +866,7 @@ namespace EcomMicroservice2.Models
             //string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
             Dictionary<Int32,ProductDetailsClass> diTemp = new Dictionary<int, ProductDetailsClass>();
+            Dictionary<Int32,ProductDetailsClass> diTemp2 = new Dictionary<int, ProductDetailsClass>();
             StringBuilder sbQuery = new StringBuilder();
 
             try{
@@ -874,6 +875,7 @@ namespace EcomMicroservice2.Models
                         string[] searchValues = SearchValue.Split(' ');
                         StringBuilder sbSearchSt = new StringBuilder();
                         bool _flag = false;
+
                         foreach(string value in searchValues)
                         {
                             sbQuery.Clear();
@@ -916,19 +918,13 @@ namespace EcomMicroservice2.Models
                                         pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                                         pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
 
-                                        //lstProduct.Add(pdc);
-                                        ProductDetailsClass pdcTemp;
                                         if (pdc.ITEM_NUMBER != 0 && _flag == false)
                                         {
                                             diTemp.Add(pdc.ITEM_NUMBER, pdc);
                                         }
                                         else if(pdc.ITEM_NUMBER != 0 && _flag == true)
                                         {
-                                            diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
-                                            if (pdcTemp == null)
-                                            {
-                                                diTemp.Remove(pdc.ITEM_NUMBER);
-                                            }
+                                            diTemp2.Add(pdc.ITEM_NUMBER, pdc);
                                         }
 
                                     }
@@ -938,8 +934,12 @@ namespace EcomMicroservice2.Models
                                     }
                                 //result = cmd.CommandText + " "+conn.ToString();;
                             }
-
-                            _flag = true;
+                            if(diTemp.Count > 0 && diTemp2.Count > 0 &&  _flag == true)
+                            {
+                               diTemp = diTemp.Where(x => diTemp2.ContainsKey(x.Key)).ToDictionary(x => x.Key, x => x.Value);
+                               diTemp2.Clear();
+                            }
+                             _flag = true;
                         }                       
                     }
                     foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
