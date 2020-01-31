@@ -811,8 +811,20 @@ namespace EcomMicroservice2.Models
                                         pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
                                         pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
                                         pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
-                                        pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);
-                                        pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);
+                                        if(DBNull.Value != dataReader["LIST_PRICE"])
+                                        {pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);}
+                                        else
+                                        {
+                                            pdc.LIST_PRICE = 0;
+                                        }
+
+                                        if(DBNull.Value != dataReader["DISCOUNT"])
+                                        {pdc.DISCOUNT = Convert.ToDecimal(dataReader["DISCOUNT"]);}
+                                        else
+                                        {
+                                            pdc.DISCOUNT = 0;
+                                        }
+
                                         pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                                         pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
 
