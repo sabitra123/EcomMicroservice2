@@ -772,6 +772,7 @@ namespace EcomMicroservice2.Models
                     {  
                         string[] searchValues = SearchValue.Split(' ');
                         StringBuilder sbSearchSt = new StringBuilder();
+                        bool _flag = false;
                         foreach(string value in searchValues)
                         {
                             sbQuery.Clear();
@@ -815,12 +816,16 @@ namespace EcomMicroservice2.Models
 
                                         //lstProduct.Add(pdc);
                                         ProductDetailsClass pdcTemp;
-                                        if (pdc.ITEM_NUMBER != 0)
+                                        if (pdc.ITEM_NUMBER != 0 && _flag == false)
+                                        {
+                                            diTemp.Add(pdc.ITEM_NUMBER, pdc);
+                                        }
+                                        else if(pdc.ITEM_NUMBER != 0 && _flag == true)
                                         {
                                             diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
                                             if (pdcTemp == null)
                                             {
-                                                diTemp.Add(pdc.ITEM_NUMBER, pdc);
+                                                diTemp.Remove(pdc.ITEM_NUMBER);
                                             }
                                         }
 
@@ -832,7 +837,7 @@ namespace EcomMicroservice2.Models
                                 //result = cmd.CommandText + " "+conn.ToString();;
                             }
 
-
+                            _flag = true;
                         }                       
                     }
                     foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
@@ -868,9 +873,11 @@ namespace EcomMicroservice2.Models
                     {  
                         string[] searchValues = SearchValue.Split(' ');
                         StringBuilder sbSearchSt = new StringBuilder();
+                        bool _flag = false;
                         foreach(string value in searchValues)
                         {
                             sbQuery.Clear();
+                            
                             using(MySqlCommand cmd = new MySqlCommand(QueryStringClass.getSearchProductWithDetails, conn))
                             {
                                     sbQuery.Append(cmd.CommandText);
@@ -911,12 +918,16 @@ namespace EcomMicroservice2.Models
 
                                         //lstProduct.Add(pdc);
                                         ProductDetailsClass pdcTemp;
-                                        if (pdc.ITEM_NUMBER != 0)
+                                        if (pdc.ITEM_NUMBER != 0 && _flag == false)
+                                        {
+                                            diTemp.Add(pdc.ITEM_NUMBER, pdc);
+                                        }
+                                        else if(pdc.ITEM_NUMBER != 0 && _flag == true)
                                         {
                                             diTemp.TryGetValue(pdc.ITEM_NUMBER, out pdcTemp);
                                             if (pdcTemp == null)
                                             {
-                                                diTemp.Add(pdc.ITEM_NUMBER, pdc);
+                                                diTemp.Remove(pdc.ITEM_NUMBER);
                                             }
                                         }
 
@@ -928,7 +939,7 @@ namespace EcomMicroservice2.Models
                                 //result = cmd.CommandText + " "+conn.ToString();;
                             }
 
-
+                            _flag = true;
                         }                       
                     }
                     foreach(KeyValuePair<Int32,ProductDetailsClass> valueList in diTemp)
