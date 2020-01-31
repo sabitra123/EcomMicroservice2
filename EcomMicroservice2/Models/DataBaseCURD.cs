@@ -760,9 +760,9 @@ namespace EcomMicroservice2.Models
         }
 
 
-        public List<ProductDetailsClass> GetSearchProductDetails(string connectionString,string SearchValue)
+        public string GetSearchProductDetails(string connectionString,string SearchValue)
         {
-            //string result = string.Empty;
+            string result = string.Empty;
             List<ProductDetailsClass> lstProduct =  new List<ProductDetailsClass>();
             Dictionary<Int32,ProductDetailsClass> diTemp = new Dictionary<int, ProductDetailsClass>();
             Dictionary<Int32,ProductDetailsClass> diTemp2 = new Dictionary<int, ProductDetailsClass>();
@@ -818,6 +818,7 @@ namespace EcomMicroservice2.Models
 
                                         if (pdc.ITEM_NUMBER != 0 && _flag == false)
                                         {
+                                            result = "Adding"+ result;
                                             diTemp.Add(pdc.ITEM_NUMBER, pdc);
                                         }
                                         else if(pdc.ITEM_NUMBER != 0 && _flag == true)
@@ -834,6 +835,7 @@ namespace EcomMicroservice2.Models
                             }
                             if(diTemp.Count > 0 && diTemp2.Count > 0 &&  _flag == true)
                             {
+                               result = result + diTemp.Count+" 1st round "+diTemp2.Count;
                                diTemp = diTemp.Where(x => diTemp2.ContainsKey(x.Key)).ToDictionary(x => x.Key, x => x.Value);
                                diTemp2.Clear();
                             }
@@ -844,20 +846,20 @@ namespace EcomMicroservice2.Models
                     {
                         lstProduct.Add(valueList.Value);
                     }
-                return lstProduct;
-                //return diTemp.Count.ToString(); //result;
+                //return lstProduct;
+                return diTemp.Count.ToString() + result;
             }
             catch(MySqlException ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString());
-                //return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString();
-                return lstProduct;
+                return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString()+ result;
+                //return lstProduct;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.StackTrace+ex.Message);
-                //return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString();
-                return lstProduct;
+                return ex.StackTrace+ex.Message+"....."+diTemp.Count.ToString()+ result;
+                //return lstProduct;
             }
         }
 
