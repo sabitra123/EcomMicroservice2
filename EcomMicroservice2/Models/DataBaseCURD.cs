@@ -816,12 +816,12 @@ namespace EcomMicroservice2.Models
                                         pdc.INSTOCK = Convert.ToString(dataReader["IN_STOCK"]);
                                         pdc.PRICE_EFFECTIVE_DATE = Convert.ToDateTime(dataReader["PRICE_EFFECTIVE_DATE"]);
 
-                                        if (pdc.ITEM_NUMBER != 0 && _flag == false)
+                                        if (pdc.ITEM_NUMBER != 0 && _flag == false && !diTemp.ContainsKey(pdc.ITEM_NUMBER))
                                         {
                                             result = "Adding"+ result;
                                             diTemp.Add(pdc.ITEM_NUMBER, pdc);
                                         }
-                                        else if(pdc.ITEM_NUMBER != 0 && _flag == true)
+                                        else if(pdc.ITEM_NUMBER != 0 && _flag == true && !diTemp2.ContainsKey(pdc.ITEM_NUMBER))
                                         {
                                                 diTemp2.Add(pdc.ITEM_NUMBER, pdc);
                                         }
