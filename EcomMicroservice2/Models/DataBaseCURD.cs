@@ -1017,7 +1017,8 @@ namespace EcomMicroservice2.Models
                                         {
                                             Console.WriteLine("Values: "+ value);
                                             List<ProductDetailsClass> _lstTempSize = new List<ProductDetailsClass>();
-                                            _lstTempSize = lstProduct.Where(x => x.BRAND.Contains(value)).ToList<ProductDetailsClass>();
+                                            _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value)).ToList<ProductDetailsClass>();
+                                            Console.WriteLine("Values Count: "+ _lstTempSize.Count);
                                             lstProduct.AddRange(_lstTempSize);
                                         }
                                }
