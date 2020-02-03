@@ -1015,6 +1015,7 @@ namespace EcomMicroservice2.Models
                                {
                                    foreach(string value in _sizeArray)
                                         {
+                                            Console.WriteLine("Values: "+ value);
                                             List<ProductDetailsClass> _lstTempSize = new List<ProductDetailsClass>();
                                             _lstTempSize = lstProduct.Where(x => x.BRAND.Contains(value)).ToList<ProductDetailsClass>();
                                             lstProduct.AddRange(_lstTempSize);
