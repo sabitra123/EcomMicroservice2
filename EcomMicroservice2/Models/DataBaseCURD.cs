@@ -925,9 +925,9 @@ namespace EcomMicroservice2.Models
                                         pdc.ITEM_NUMBER = Convert.ToInt32(dataReader["ITEM_NUMBER"]);  
                                         pdc.DESCRIPTION = Convert.ToString(dataReader["DESCRIPTION"]);
                                         pdc.LONG_DESCRIPTION = Convert.ToString(dataReader["LONG_DESCRIPTION"]);
-                                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]);
-                                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]);
-                                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]);
+                                        pdc.BRAND = Convert.ToString(dataReader["BRAND"]).ToLower();
+                                        pdc.SIZE = Convert.ToString(dataReader["SIZE"]).ToLower();
+                                        pdc.COLOUR = Convert.ToString(dataReader["COLOUR"]).ToLower();
 
                                         if(DBNull.Value != dataReader["LIST_PRICE"])
                                         {pdc.LIST_PRICE = Convert.ToDecimal(dataReader["LIST_PRICE"]);}
@@ -978,14 +978,14 @@ namespace EcomMicroservice2.Models
                             {
                                 string[] _colorArray = Color.Split(',');
                                 if(_colorArray.Length == 1)
-                                {lstProduct = lstProduct.Where(x => x.COLOUR.Contains(Color.Replace("'",""))).ToList<ProductDetailsClass>();}
+                                {lstProduct = lstProduct.Where(x => x.COLOUR.Contains(Color.Replace("'","").ToLower())).ToList<ProductDetailsClass>();}
                                 else
                                 {
                                     List<ProductDetailsClass> _lstColor = new List<ProductDetailsClass>();
                                     foreach(string value in _colorArray)
                                     {
                                         List<ProductDetailsClass> _lstTempColor = new List<ProductDetailsClass>();
-                                        _lstTempColor = lstProduct.Where(x => x.COLOUR.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
+                                        _lstTempColor = lstProduct.Where(x => x.COLOUR.Contains(value.Replace("'","").ToLower())).ToList<ProductDetailsClass>();
                                         _lstColor.AddRange(_lstTempColor);
                                     }
                                     lstProduct = _lstColor;
@@ -997,13 +997,13 @@ namespace EcomMicroservice2.Models
                             {
                                 string[] _brandArray = Brand.Split(',');
                                 if(_brandArray.Length == 1)
-                                {lstProduct = lstProduct.Where(x => x.BRAND.Contains(Brand.Replace("'",""))).ToList<ProductDetailsClass>();}
+                                {lstProduct = lstProduct.Where(x => x.BRAND.Contains(Brand.Replace("'","").ToLower())).ToList<ProductDetailsClass>();}
                                 else{
                                         List<ProductDetailsClass> _lstBrand = new List<ProductDetailsClass>();
                                         foreach(string value in _brandArray)
                                         {
                                             List<ProductDetailsClass> _lstTempBrand = new List<ProductDetailsClass>();
-                                            _lstTempBrand = lstProduct.Where(x => x.BRAND.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
+                                            _lstTempBrand = lstProduct.Where(x => x.BRAND.Contains(value.Replace("'","").ToLower())).ToList<ProductDetailsClass>();
                                             _lstBrand.AddRange(_lstTempBrand);
                                         }
                                         lstProduct = _lstBrand;
@@ -1014,14 +1014,14 @@ namespace EcomMicroservice2.Models
                             {
                                string[] _sizeArray = Size.Split(',');
                                if(_sizeArray.Length == 1)
-                               {lstProduct = lstProduct.Where(x => x.SIZE.Contains(Size.Replace("'",""))).ToList<ProductDetailsClass>();}
+                               {lstProduct = lstProduct.Where(x => x.SIZE.Contains(Size.Replace("'","").ToLower())).ToList<ProductDetailsClass>();}
                                else
                                {
                                    List<ProductDetailsClass> _lstSize = new List<ProductDetailsClass>();
                                    foreach(string value in _sizeArray)
                                         {
                                             List<ProductDetailsClass> _lstTempSize = new List<ProductDetailsClass>();
-                                            _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
+                                            _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value.Replace("'","").ToLower())).ToList<ProductDetailsClass>();
                                             _lstSize.AddRange(_lstTempSize);
                                         }
                                         lstProduct = _lstSize;
