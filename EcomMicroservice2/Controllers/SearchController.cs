@@ -28,8 +28,8 @@ namespace EcomMicroservice2.Controllers
             return new JsonResult(lst);  
         }
 
-        [HttpGet("{Color}/{Brand}/{Size}/{SearchValue}")]
-        public JsonResult Get(string Color,string Brand, string Size, string SearchValue)
+        [HttpGet("{SearchValue}/{Color}/{Brand}/{Size}")]
+        public JsonResult Get(string SearchValue, string Color,string Brand, string Size)
         {
             
             DatabaseCURD dbCurd = new DatabaseCURD();
