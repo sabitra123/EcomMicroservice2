@@ -981,12 +981,14 @@ namespace EcomMicroservice2.Models
                                 {lstProduct = lstProduct.Where(x => x.COLOUR.Contains(Color)).ToList<ProductDetailsClass>();}
                                 else
                                 {
+                                    List<ProductDetailsClass> _lstColor = new List<ProductDetailsClass>();
                                     foreach(string value in _colorArray)
                                     {
                                         List<ProductDetailsClass> _lstTempColor = new List<ProductDetailsClass>();
                                         _lstTempColor = lstProduct.Where(x => x.COLOUR.Contains(value)).ToList<ProductDetailsClass>();
-                                        lstProduct.AddRange(_lstTempColor);
+                                        _lstColor.AddRange(_lstTempColor);
                                     }
+                                    lstProduct = _lstColor;
 
                                 }
                             }
@@ -997,12 +999,14 @@ namespace EcomMicroservice2.Models
                                 if(_brandArray.Length == 1)
                                 {lstProduct = lstProduct.Where(x => x.BRAND.Contains(Brand)).ToList<ProductDetailsClass>();}
                                 else{
+                                        List<ProductDetailsClass> _lstBrand = new List<ProductDetailsClass>();
                                         foreach(string value in _brandArray)
                                         {
                                             List<ProductDetailsClass> _lstTempBrand = new List<ProductDetailsClass>();
                                             _lstTempBrand = lstProduct.Where(x => x.BRAND.Contains(value)).ToList<ProductDetailsClass>();
-                                            lstProduct.AddRange(_lstTempBrand);
+                                            _lstBrand.AddRange(_lstTempBrand);
                                         }
+                                        lstProduct = _lstBrand;
                                     }
                             }
 
@@ -1013,14 +1017,14 @@ namespace EcomMicroservice2.Models
                                {lstProduct = lstProduct.Where(x => x.SIZE.Contains(Size)).ToList<ProductDetailsClass>();}
                                else
                                {
+                                   List<ProductDetailsClass> _lstSize = new List<ProductDetailsClass>();
                                    foreach(string value in _sizeArray)
                                         {
-                                            Console.WriteLine("Values: "+ value);
                                             List<ProductDetailsClass> _lstTempSize = new List<ProductDetailsClass>();
                                             _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value)).ToList<ProductDetailsClass>();
-                                            Console.WriteLine("Values Count: "+ _lstTempSize.Count);
-                                            lstProduct.AddRange(_lstTempSize);
+                                            _lstSize.AddRange(_lstTempSize);
                                         }
+                                        lstProduct = _lstSize;
                                }
                             }
 
