@@ -978,14 +978,14 @@ namespace EcomMicroservice2.Models
                             {
                                 string[] _colorArray = Color.Split(',');
                                 if(_colorArray.Length == 1)
-                                {lstProduct = lstProduct.Where(x => x.COLOUR.Contains(Color)).ToList<ProductDetailsClass>();}
+                                {lstProduct = lstProduct.Where(x => x.COLOUR.Contains(Color.Replace("'",""))).ToList<ProductDetailsClass>();}
                                 else
                                 {
                                     List<ProductDetailsClass> _lstColor = new List<ProductDetailsClass>();
                                     foreach(string value in _colorArray)
                                     {
                                         List<ProductDetailsClass> _lstTempColor = new List<ProductDetailsClass>();
-                                        _lstTempColor = lstProduct.Where(x => x.COLOUR.Contains(value)).ToList<ProductDetailsClass>();
+                                        _lstTempColor = lstProduct.Where(x => x.COLOUR.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
                                         _lstColor.AddRange(_lstTempColor);
                                     }
                                     lstProduct = _lstColor;
@@ -997,13 +997,13 @@ namespace EcomMicroservice2.Models
                             {
                                 string[] _brandArray = Brand.Split(',');
                                 if(_brandArray.Length == 1)
-                                {lstProduct = lstProduct.Where(x => x.BRAND.Contains(Brand)).ToList<ProductDetailsClass>();}
+                                {lstProduct = lstProduct.Where(x => x.BRAND.Contains(Brand.Replace("'",""))).ToList<ProductDetailsClass>();}
                                 else{
                                         List<ProductDetailsClass> _lstBrand = new List<ProductDetailsClass>();
                                         foreach(string value in _brandArray)
                                         {
                                             List<ProductDetailsClass> _lstTempBrand = new List<ProductDetailsClass>();
-                                            _lstTempBrand = lstProduct.Where(x => x.BRAND.Contains(value)).ToList<ProductDetailsClass>();
+                                            _lstTempBrand = lstProduct.Where(x => x.BRAND.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
                                             _lstBrand.AddRange(_lstTempBrand);
                                         }
                                         lstProduct = _lstBrand;
@@ -1014,14 +1014,14 @@ namespace EcomMicroservice2.Models
                             {
                                string[] _sizeArray = Size.Split(',');
                                if(_sizeArray.Length == 1)
-                               {lstProduct = lstProduct.Where(x => x.SIZE.Contains(Size)).ToList<ProductDetailsClass>();}
+                               {lstProduct = lstProduct.Where(x => x.SIZE.Contains(Size.Replace("'",""))).ToList<ProductDetailsClass>();}
                                else
                                {
                                    List<ProductDetailsClass> _lstSize = new List<ProductDetailsClass>();
                                    foreach(string value in _sizeArray)
                                         {
                                             List<ProductDetailsClass> _lstTempSize = new List<ProductDetailsClass>();
-                                            _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value)).ToList<ProductDetailsClass>();
+                                            _lstTempSize = lstProduct.Where(x => x.SIZE.Contains(value.Replace("'",""))).ToList<ProductDetailsClass>();
                                             _lstSize.AddRange(_lstTempSize);
                                         }
                                         lstProduct = _lstSize;
